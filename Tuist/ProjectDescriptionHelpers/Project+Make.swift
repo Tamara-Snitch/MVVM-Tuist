@@ -85,7 +85,7 @@ private extension Project {
 			deploymentTargets: deploymentTargets,
 			infoPlist: "\(name)/Configs/\(Constants.projectName)-Info.plist",
 			sources: ["\(name)/Sources/**"],
-			resources: ["\(name)/Resources/**"],
+//			resources: ["\(name)/Resources/**"],
 //			scripts: [
 //				.post(
 //					path: "scripts/swiftlint.sh",
