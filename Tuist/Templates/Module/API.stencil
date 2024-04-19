@@ -1,0 +1,13 @@
+//
+// {{ name }}ITestable.swift
+// {{ name }}
+//
+//  Created by {{ author }} on {{ date }}.
+//  Copyright © {{ year }} {{ company }}. All rights reserved.
+//
+
+import Foundation
+
+public protocol {{ name }}ITestable {
+	func makeTest() -> String
+}

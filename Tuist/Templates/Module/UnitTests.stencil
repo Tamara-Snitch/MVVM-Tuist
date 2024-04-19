@@ -1,0 +1,30 @@
+//
+// {{ name }}UnitTests.swift
+// {{ name }}
+//
+//  Created by {{ author }} on {{ date }}.
+//  Copyright © {{ year }} {{ company }}. All rights reserved.
+//
+
+import XCTest
+
+@testable import {{ name }}
+@testable import {{ name }}Testing
+
+final class {{ name }}UnitTests: XCTestCase {
+    override func setUpWithError() throws {
+        super.setUp()
+    }
+
+    override func tearDownWithError() throws {
+        super.tearDown()
+    }
+
+    func test{{ name }}() {
+        // Given
+
+        // When
+
+        // Then
+    }
+}

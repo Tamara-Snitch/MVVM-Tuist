@@ -1,0 +1,15 @@
+//
+// {{ name }}TestingMock.swift
+// {{ name }}
+//
+//  Created by {{ author }} on {{ date }}.
+//  Copyright © {{ year }} {{ company }}. All rights reserved.
+//
+
+import {{ name }}API
+
+public struct {{ name }}TestableMockModel: {{ name }}ITestable {
+	public func makeTest() -> String {
+		"makeMockTest"
+	}
+}
