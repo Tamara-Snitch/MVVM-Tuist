@@ -1,5 +1,5 @@
 //
-// {{ name }}ITestable.swift
+// I{{ name }}Testable.swift
 // {{ name }}
 //
 //  Created by {{ author }} on {{ date }}.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public protocol {{ name }}ITestable {
+public protocol I{{ name }}Testable {
 	func makeTest() -> String
 }

@@ -8,7 +8,7 @@
 
 import {{ name }}API
 
-public struct {{ name }}TestableModel: {{ name }}ITestable {
+public struct {{ name }}TestableModel: I{{ name }}Testable {
 	public func makeTest() -> String {
 		// Какая-то логика
 		return "makeTest"

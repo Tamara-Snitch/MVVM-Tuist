@@ -182,7 +182,7 @@ private extension Project {
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/API/Configs/\(module.name)API-Info.plist",
 					sources: ["\(frameworkPath)/API/Sources/**"],
-					dependencies: module.frameworkDependencies
+					dependencies: module.apiDependencies
 				)
 			}
 			return target

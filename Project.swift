@@ -28,6 +28,7 @@ func makeCategoryModule() -> Module {
 		path: "Category",
 		exampleAppDependencies: [],
 		frameworkDependencies: [],
+		apiDependencies: [],
 		exampleResources: [],
 		frameworkResources: [],
 		testResources: []

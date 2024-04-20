@@ -9,7 +9,7 @@
 import SwiftUI
 
 @main
-struct CategoryApp: App {
+struct {{ name }}App: App {
 	var body: some Scene {
 		WindowGroup {}
 	}
