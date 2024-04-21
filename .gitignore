@@ -27,3 +27,4 @@ DerivedData
 graph.dot
 Derived/
 Tuist/Dependencies/
+Tuist/.build

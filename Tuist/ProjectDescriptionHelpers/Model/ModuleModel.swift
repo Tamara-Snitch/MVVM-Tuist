@@ -5,6 +5,7 @@ public struct Module {
 	public let path: String
 	public let exampleAppDependencies: [TargetDependency]
 	public let frameworkDependencies: [TargetDependency]
+	public let apiDependencies: [TargetDependency]
 	public let exampleResources: [String]
 	public let frameworkResources: [String]
 	public let testResources: [String]
@@ -15,7 +16,8 @@ public struct Module {
 	///  - name: Название модуля
 	///  - path: Относительный путь модуля(Относительно директории 'Features'
 	///  - exampleAppDependencies: Зависимости таргета 'Example'
-	///  - frameworkDependencies: Зависимости основного таргета 'Framework''
+	///  - frameworkDependencies: Зависимости  таргета 'Framework''
+	///  - apiDependencies: Зависимости таргета 'API'
 	///  - exampleResources: Ресурсы таргета 'Example'
 	///  - frameworkResources: Ресурсы таргета 'Framework'
 	///  - testResources: Ресурсы для таргетов 'UnitTests' и 'UITests'
@@ -26,6 +28,7 @@ public struct Module {
 		path: String,
 		exampleAppDependencies: [TargetDependency],
 		frameworkDependencies: [TargetDependency],
+		apiDependencies: [TargetDependency],
 		exampleResources: [String],
 		frameworkResources: [String],
 		testResources: [String],
@@ -35,6 +38,7 @@ public struct Module {
 		self.path = path
 		self.exampleAppDependencies = exampleAppDependencies
 		self.frameworkDependencies = frameworkDependencies
+		self.apiDependencies = apiDependencies
 		self.exampleResources = exampleResources
 		self.frameworkResources = frameworkResources
 		self.testResources = testResources

@@ -19,7 +19,6 @@ let project = Project.app(
 	]
 )
 
-
 // MARK: - Module
 
 func makeCategoryModule() -> Module {
@@ -28,6 +27,7 @@ func makeCategoryModule() -> Module {
 		path: "Category",
 		exampleAppDependencies: [],
 		frameworkDependencies: [],
+		apiDependencies: [],
 		exampleResources: [],
 		frameworkResources: [],
 		testResources: []

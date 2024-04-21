@@ -1,5 +1,5 @@
 //
-// {{ name }}TestingMock.swift
+// {{ name }}TestingMockModel.swift
 // {{ name }}
 //
 //  Created by {{ author }} on {{ date }}.
@@ -8,7 +8,7 @@
 
 import {{ name }}API
 
-public struct {{ name }}TestableMockModel: {{ name }}ITestable {
+public struct {{ name }}TestingMockModel: I{{ name }}Testable {
 	public func makeTest() -> String {
 		"makeMockTest"
 	}

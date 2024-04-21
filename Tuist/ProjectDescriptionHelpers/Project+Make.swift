@@ -85,17 +85,7 @@ private extension Project {
 			deploymentTargets: deploymentTargets,
 			infoPlist: "\(name)/Configs/\(Constants.projectName)-Info.plist",
 			sources: ["\(name)/Sources/**"],
-//			resources: ["\(name)/Resources/**"],
-//			scripts: [
-//				.post(
-//					path: "scripts/swiftlint.sh",
-//					arguments: [
-//						"$SRCROOT",
-//						"$TARGETNAME"
-//					],
-//					name: "SwiftLint"
-//				)
-//			],
+			resources: ["\(name)/Resources/**"],
 			dependencies: dependencies
 		)
 
@@ -182,7 +172,7 @@ private extension Project {
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/API/Configs/\(module.name)API-Info.plist",
 					sources: ["\(frameworkPath)/API/Sources/**"],
-					dependencies: module.frameworkDependencies
+					dependencies: module.apiDependencies
 				)
 			}
 			return target
