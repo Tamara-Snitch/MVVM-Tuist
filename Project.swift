@@ -19,7 +19,6 @@ let project = Project.app(
 	]
 )
 
-
 // MARK: - Module
 
 func makeCategoryModule() -> Module {

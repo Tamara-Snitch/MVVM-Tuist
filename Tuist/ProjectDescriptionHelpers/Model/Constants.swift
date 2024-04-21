@@ -3,13 +3,13 @@ import ProjectDescription
 /// Константы, используемые для описания проекта
 public enum Constants {
 	/// Название проекта
-	public static let projectName: String = "ComposableArchitecture"
+	public static let projectName: String = "ComposableProject"
 	/// Название команды разработки
 	public static let developmentTeam: String = "TamaraSnitch"
 	/// Название организации
 	public static let organizationName = "TamaraSnitch"
 	/// Название бандла приложения
-	public static let appBundleId = "com.\(organizationName).ComposableArchitecture"
+	public static let appBundleId = "com.\(organizationName).\(projectName)"
 	/// Минимальная версия iOS
 	public static let iOSTargetVersion = "16.0"
 	/// Текущая версия приложения

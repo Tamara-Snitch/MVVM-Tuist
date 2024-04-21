@@ -40,3 +40,4 @@ Pods/
 graph.dot
 Derived/
 Tuist/Dependencies/
+Tuist/.build

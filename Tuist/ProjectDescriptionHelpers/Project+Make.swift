@@ -86,16 +86,6 @@ private extension Project {
 			infoPlist: "\(name)/Configs/\(Constants.projectName)-Info.plist",
 			sources: ["\(name)/Sources/**"],
 			resources: ["\(name)/Resources/**"],
-//			scripts: [
-//				.post(
-//					path: "scripts/swiftlint.sh",
-//					arguments: [
-//						"$SRCROOT",
-//						"$TARGETNAME"
-//					],
-//					name: "SwiftLint"
-//				)
-//			],
 			dependencies: dependencies
 		)
 
