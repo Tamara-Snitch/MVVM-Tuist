@@ -10,7 +10,7 @@ import UIComponentsAPI
 
 public struct UIComponentsTestableModel: IUIComponentsTestable {
 	public func makeTest() -> String {
-		// Какая-то логика
+		// Какая-то логика   ddsad
 		return "makeTest"
 	}
 }
