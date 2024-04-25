@@ -15,18 +15,57 @@ let project = Project.app(
 	externalDependencies: [],
 	targetDependencies: [],
 	moduleTargets: [
+		makeCommonModule(),
+		makeUIComponentsModule(),
 		makeCategoryModule()
 	]
 )
 
 // MARK: - Module
 
+func makeCommonModule() -> Module {
+	Module(
+		name: "Common",
+		path: "Common",
+		exampleAppDependencies: [],
+		frameworkDependencies: [],
+		apiDependencies: [],
+		exampleResources: [],
+		frameworkResources: [],
+		testResources: [],
+		targets: [.framework]
+	)
+}
+
+func makeUIComponentsModule() -> Module {
+	Module(
+		name: "UIComponents",
+		path: "UIComponents",
+		exampleAppDependencies: [],
+		frameworkDependencies: [],
+		apiDependencies: [],
+		exampleResources: [],
+		frameworkResources: [],
+		testResources: [],
+		targets: [
+			.uiTests,
+			.testing,
+			.framework,
+			.api
+		]
+	)
+}
+
 func makeCategoryModule() -> Module {
 	Module(
 		name: "Category",
 		path: "Category",
 		exampleAppDependencies: [],
-		frameworkDependencies: [],
+		frameworkDependencies: [
+			.target(name: "Common"),
+			.target(name: "UIComponents"),
+			.external(name: "ComposableArchitecture")
+		],
 		apiDependencies: [],
 		exampleResources: [],
 		frameworkResources: [],

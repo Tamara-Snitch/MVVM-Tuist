@@ -145,7 +145,7 @@ private extension Project {
 				target = .target(
 					name: "\(module.name)Testing",
 					destinations: destinations,
-					product: .framework,
+					product: .staticFramework,
 					bundleId: "\(Constants.appBundleId).\(module.name)Testing",
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/Testing/Configs/\(module.name)Testing-Info.plist",
@@ -153,21 +153,26 @@ private extension Project {
 					dependencies: [.target(name: "\(module.name)API")]
 				)
 			case .framework:
+				var dependencies = module.frameworkDependencies
+				if module.targets.contains(.api) {
+					dependencies.append(.target(name: "\(module.name)API"))
+				}
+
 				target = .target(
 					name: module.name,
 					destinations: destinations,
-					product: .framework,
+					product: .staticFramework,
 					bundleId: "\(Constants.appBundleId).\(module.name)",
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/Configs/\(module.name)-Info.plist",
 					sources: ["\(frameworkPath)/Sources/**"],
-					dependencies: module.frameworkDependencies + [.target(name: "\(module.name)API")]
+					dependencies: dependencies
 				)
 			case .api:
 				target = .target(
 					name: "\(module.name)API",
 					destinations: destinations,
-					product: .framework,
+					product: .staticFramework,
 					bundleId: "\(Constants.appBundleId).\(module.name)API",
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/API/Configs/\(module.name)API-Info.plist",
