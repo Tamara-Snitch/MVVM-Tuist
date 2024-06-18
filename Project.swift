@@ -80,7 +80,9 @@ func makeCharactersModule() -> Module {
 	Module(
 		name: "Characters",
 		path: "Characters",
-		exampleAppDependencies: [],
+		exampleAppDependencies: [
+			.target(name: "NetworkingKit")
+		],
 		frameworkDependencies: [
 			.target(name: "UIComponents"),
 			.external(name: "ComposableArchitecture")

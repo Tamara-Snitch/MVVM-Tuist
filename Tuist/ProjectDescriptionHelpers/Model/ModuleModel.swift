@@ -18,9 +18,9 @@ public struct Module {
 	///  - exampleAppDependencies: Зависимости таргета 'Example'
 	///  - frameworkDependencies: Зависимости  таргета 'Framework''
 	///  - apiDependencies: Зависимости таргета 'API'
-	///  - exampleResources: Ресурсы таргета 'Example'
-	///  - frameworkResources: Ресурсы таргета 'Framework'
-	///  - testResources: Ресурсы для таргетов 'UnitTests' и 'UITests'
+	///  - exampleResources: ВРЕМЕННО НЕ ИСПОЛЬЗУЕТСЯ: Ресурсы таргета 'Example'
+	///  - frameworkResources: ВРЕМЕННО НЕ ИСПОЛЬЗУЕТСЯ: Ресурсы таргета 'Framework'
+	///  - testResources: ВРЕМЕННО НЕ ИСПОЛЬЗУЕТСЯ: Ресурсы для таргетов 'UnitTests' и 'UITests'
 	///  - targets: Необходимые для модуля таргеты, по умолчанию создаются все согласно uFeature-архитектуре
 	/// - Returns: Сконфигурированный модуль типа Module
 	public init(
