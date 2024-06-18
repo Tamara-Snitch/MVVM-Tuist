@@ -15,13 +15,33 @@ let project = Project.app(
 	externalDependencies: [],
 	targetDependencies: [],
 	moduleTargets: [
+		makeNetworkingKitModule(),
 		makeCommonModule(),
 		makeUIComponentsModule(),
-		makeCategoryModule()
+		makeCharactersModule()
 	]
 )
 
 // MARK: - Module
+
+func makeNetworkingKitModule() -> Module {
+	Module(
+		name: "NetworkingKit",
+		path: "NetworkingKit",
+		exampleAppDependencies: [],
+		frameworkDependencies: [],
+		apiDependencies: [],
+		exampleResources: [],
+		frameworkResources: [],
+		testResources: [],
+		targets: [
+			.api,
+			.framework,
+			.testing,
+			.unitTests
+		]
+	)
+}
 
 func makeCommonModule() -> Module {
 	Module(
@@ -33,7 +53,7 @@ func makeCommonModule() -> Module {
 		exampleResources: [],
 		frameworkResources: [],
 		testResources: [],
-		targets: [.framework]
+		targets: [.api]
 	)
 }
 
@@ -56,17 +76,19 @@ func makeUIComponentsModule() -> Module {
 	)
 }
 
-func makeCategoryModule() -> Module {
+func makeCharactersModule() -> Module {
 	Module(
-		name: "Category",
-		path: "Category",
+		name: "Characters",
+		path: "Characters",
 		exampleAppDependencies: [],
 		frameworkDependencies: [
-			.target(name: "Common"),
 			.target(name: "UIComponents"),
 			.external(name: "ComposableArchitecture")
 		],
-		apiDependencies: [],
+		apiDependencies: [
+			.target(name: "NetworkingKitAPI"),
+			.target(name: "Common"),
+		],
 		exampleResources: [],
 		frameworkResources: [],
 		testResources: []

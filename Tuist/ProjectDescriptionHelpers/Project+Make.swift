@@ -116,7 +116,7 @@ private extension Project {
 					bundleId: "\(Constants.appBundleId).\(module.name)ExampleApp",
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/Example/Configs/\(module.name)ExampleApp-Info.plist",
-					sources: ["\(Constants.featuresPath)/\(module.path)/Example/Sources/**"],
+					sources: ["\(frameworkPath)/Example/Sources/**"],
 					dependencies: [.target(name: module.name), .target(name: "\(module.name)Testing")]
 				)
 			case .unitTests:
@@ -169,13 +169,14 @@ private extension Project {
 					dependencies: dependencies
 				)
 			case .api:
+				let moduleName = module.targets.count > 1 ? "\(module.name)API" : module.name
 				target = .target(
-					name: "\(module.name)API",
+					name: moduleName,
 					destinations: destinations,
 					product: .staticFramework,
-					bundleId: "\(Constants.appBundleId).\(module.name)API",
+					bundleId: "\(Constants.appBundleId).\(moduleName)",
 					deploymentTargets: deploymentTargets,
-					infoPlist: "\(frameworkPath)/API/Configs/\(module.name)API-Info.plist",
+					infoPlist: "\(frameworkPath)/API/Configs/\(moduleName)-Info.plist",
 					sources: ["\(frameworkPath)/API/Sources/**"],
 					dependencies: module.apiDependencies
 				)

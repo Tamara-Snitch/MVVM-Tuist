@@ -1,16 +1,17 @@
 //
-// UIComponentsUITests.swift
-// UIComponents
+// CharactersUITests.swift
+// Characters
 //
-//  Created by Kirill Prokoptsov on 22.04.2024.
+//  Created by Kirill Prokoptsov on 20.04.2024.
 //  Copyright © 2024 TamaraSnitch. All rights reserved.
 //
 
 import XCTest
-import UIComponentsTesting
-@testable import UIComponents
 
-final class UIComponentsUITests: XCTestCase {
+@testable import Characters
+@testable import CharactersTesting
+
+final class CharactersUITests: XCTestCase {
 
 	override func setUpWithError() throws {
 		continueAfterFailure = false
