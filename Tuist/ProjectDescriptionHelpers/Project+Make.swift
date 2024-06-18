@@ -109,6 +109,12 @@ private extension Project {
 			let target: Target
 			switch uFeatureTarget {
 			case .exampleApp:
+				let dependencies = module.exampleAppDependencies 
+				+
+				[
+					.target(name: module.name),
+					.target(name: "\(module.name)Testing")
+				]
 				target = .target(
 					name: "\(module.name)ExampleApp",
 					destinations: destinations,
@@ -117,7 +123,7 @@ private extension Project {
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/Example/Configs/\(module.name)ExampleApp-Info.plist",
 					sources: ["\(frameworkPath)/Example/Sources/**"],
-					dependencies: [.target(name: module.name), .target(name: "\(module.name)Testing")]
+					dependencies: dependencies
 				)
 			case .unitTests:
 				target = .target(
