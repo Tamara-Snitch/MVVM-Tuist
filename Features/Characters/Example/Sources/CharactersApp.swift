@@ -8,26 +8,15 @@
 
 import Characters
 import NetworkingKit
-import ComposableArchitecture
 import SwiftUI
 
 @main
 struct CharactersApp: App {
+	@UIApplicationDelegateAdaptor(CharactersAppDelegate.self) var appDelegate
+
 	var body: some Scene {
 		WindowGroup {
-			CharactersListView(
-				store: Store(
-					initialState: CharactersListReducer.State(),
-					reducer: {
-						CharactersListReducer(
-							charactersService: CharactersService(
-								baseURL: "rickandmortyapi.com",
-								apiClient: APIClient()
-							)
-						)
-						._printChanges()
-					})
-			)
+			AnyView(appDelegate.makeCharacterListView())
 		}
 	}
 }

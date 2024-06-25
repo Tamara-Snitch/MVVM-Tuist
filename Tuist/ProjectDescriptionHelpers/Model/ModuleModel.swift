@@ -6,9 +6,9 @@ public struct Module {
 	public let exampleAppDependencies: [TargetDependency]
 	public let frameworkDependencies: [TargetDependency]
 	public let apiDependencies: [TargetDependency]
-	public let exampleResources: [String]
-	public let frameworkResources: [String]
-	public let testResources: [String]
+	public let isExampleTargetNeedsResources: Bool
+	public let isFrameworkTargetNeedsResources: Bool
+	public let isTestTargetsNeedsResources: Bool
 	public let targets: Set<FeatureTarget>
 
 	/// Инициализатор модели Модуля
@@ -18,9 +18,9 @@ public struct Module {
 	///  - exampleAppDependencies: Зависимости таргета 'Example'
 	///  - frameworkDependencies: Зависимости  таргета 'Framework''
 	///  - apiDependencies: Зависимости таргета 'API'
-	///  - exampleResources: ВРЕМЕННО НЕ ИСПОЛЬЗУЕТСЯ: Ресурсы таргета 'Example'
-	///  - frameworkResources: ВРЕМЕННО НЕ ИСПОЛЬЗУЕТСЯ: Ресурсы таргета 'Framework'
-	///  - testResources: ВРЕМЕННО НЕ ИСПОЛЬЗУЕТСЯ: Ресурсы для таргетов 'UnitTests' и 'UITests'
+	///  - exampleResources: Флаг необходимости генерации директории для ресурсов таргета 'Example'
+	///  - frameworkResources: Флаг необходимости генерации директории для ресурсов таргета  'Framework'
+	///  - testResources: Флаг необходимости генерации директории для ресурсов таргетов 'UnitTests' и 'UITests'
 	///  - targets: Необходимые для модуля таргеты, по умолчанию создаются все согласно uFeature-архитектуре
 	/// - Returns: Сконфигурированный модуль типа Module
 	public init(
@@ -29,9 +29,9 @@ public struct Module {
 		exampleAppDependencies: [TargetDependency],
 		frameworkDependencies: [TargetDependency],
 		apiDependencies: [TargetDependency],
-		exampleResources: [String],
-		frameworkResources: [String],
-		testResources: [String],
+		isExampleTargetNeedsResources: Bool = false,
+		isFrameworkTargetNeedsResources: Bool = false,
+		isTestTargetsNeedsResources: Bool = false,
 		targets: Set<FeatureTarget> = Set(FeatureTarget.allCases)
 	) {
 		self.name = name
@@ -39,9 +39,9 @@ public struct Module {
 		self.exampleAppDependencies = exampleAppDependencies
 		self.frameworkDependencies = frameworkDependencies
 		self.apiDependencies = apiDependencies
-		self.exampleResources = exampleResources
-		self.frameworkResources = frameworkResources
-		self.testResources = testResources
+		self.isExampleTargetNeedsResources = isExampleTargetNeedsResources
+		self.isFrameworkTargetNeedsResources = isFrameworkTargetNeedsResources
+		self.isTestTargetsNeedsResources = isTestTargetsNeedsResources
 		self.targets = targets
 	}
 }
