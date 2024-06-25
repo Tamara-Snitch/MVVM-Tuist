@@ -1,0 +1,34 @@
+{
+  "sourceLanguage" : "ru",
+  "strings" : {
+    "EmptyCharacters" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Characters list is empty, please try later"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Список персонажей пуст, попробуйте позже"
+          }
+        }
+      }
+    },
+    "test" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Я русский "
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

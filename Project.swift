@@ -12,16 +12,37 @@ let project = Project.app(
 	appVersionBuild: Constants.appVersionBuild.description,
 	destinations: .iOS,
 	deploymentTargets: Constants.getDeploymentTarget(),
-	externalDependencies: [],
+	externalDependencies: [
+		"DITranquillity"
+	],
 	targetDependencies: [],
 	moduleTargets: [
+		makeNetworkingKitModule(),
 		makeCommonModule(),
 		makeUIComponentsModule(),
-		makeCategoryModule()
+		makeCharactersModule()
 	]
 )
 
 // MARK: - Module
+
+func makeNetworkingKitModule() -> Module {
+	Module(
+		name: "NetworkingKit",
+		path: "NetworkingKit",
+		exampleAppDependencies: [],
+		frameworkDependencies: [
+			.external(name:"DITranquillity")
+		],
+		apiDependencies: [],
+		targets: [
+			.api,
+			.framework,
+			.testing,
+			.unitTests
+		]
+	)
+}
 
 func makeCommonModule() -> Module {
 	Module(
@@ -30,10 +51,7 @@ func makeCommonModule() -> Module {
 		exampleAppDependencies: [],
 		frameworkDependencies: [],
 		apiDependencies: [],
-		exampleResources: [],
-		frameworkResources: [],
-		testResources: [],
-		targets: [.framework]
+		targets: [.api]
 	)
 }
 
@@ -44,9 +62,6 @@ func makeUIComponentsModule() -> Module {
 		exampleAppDependencies: [],
 		frameworkDependencies: [],
 		apiDependencies: [],
-		exampleResources: [],
-		frameworkResources: [],
-		testResources: [],
 		targets: [
 			.uiTests,
 			.testing,
@@ -56,19 +71,21 @@ func makeUIComponentsModule() -> Module {
 	)
 }
 
-func makeCategoryModule() -> Module {
+func makeCharactersModule() -> Module {
 	Module(
-		name: "Category",
-		path: "Category",
-		exampleAppDependencies: [],
-		frameworkDependencies: [
-			.target(name: "Common"),
-			.target(name: "UIComponents"),
-			.external(name: "ComposableArchitecture")
+		name: "Characters",
+		path: "Characters",
+		exampleAppDependencies: [
+			.target(name: "NetworkingKit")
 		],
-		apiDependencies: [],
-		exampleResources: [],
-		frameworkResources: [],
-		testResources: []
+		frameworkDependencies: [
+			.target(name: "UIComponents"),
+			.external(name:"DITranquillity")
+		],
+		apiDependencies: [
+			.target(name: "NetworkingKitAPI"),
+			.target(name: "Common"),
+		],
+		isExampleTargetNeedsResources: true
 	)
 }

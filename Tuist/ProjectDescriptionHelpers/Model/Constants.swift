@@ -3,7 +3,7 @@ import ProjectDescription
 /// Константы, используемые для описания проекта
 public enum Constants {
 	/// Название проекта
-	public static let projectName: String = "ComposableProject"
+	public static let projectName: String = "MVVM-Tuist"
 	/// Название команды разработки
 	public static let developmentTeam: String = "TamaraSnitch"
 	/// Название организации
