@@ -9,7 +9,7 @@ let package = Package(
 // MARK: - ExternalDependency
 
 fileprivate enum ExternalDependency: CaseIterable {
-	case composableArchitecture
+	case DITranquillity
 }
 
 // MARK: Private Properties
@@ -35,8 +35,8 @@ fileprivate extension ExternalDependency {
 	var name: String {
 		let name: String
 		switch self {
-		case .composableArchitecture:
-			name = "ComposableArchitecture"
+		case .DITranquillity:
+			name = "DITranquillity"
 		}
 		return name
 	}
@@ -45,8 +45,8 @@ fileprivate extension ExternalDependency {
 	var stringURL: String {
 		let url: String
 		switch self {
-		case .composableArchitecture:
-			url = "https://github.com/pointfreeco/swift-composable-architecture"
+		case .DITranquillity:
+			url = "https://github.com/ivlevAstef/DITranquillity.git"
 		}
 		return url
 	}
@@ -55,8 +55,8 @@ fileprivate extension ExternalDependency {
 	var versionRequirement: VersionRequirement {
 		let requirement: VersionRequirement
 		switch self {
-		case .composableArchitecture:
-			requirement = .exact("1.9.3")
+		case .DITranquillity:
+			requirement = .from("4.6.0")
 		}
 		return requirement
 	}

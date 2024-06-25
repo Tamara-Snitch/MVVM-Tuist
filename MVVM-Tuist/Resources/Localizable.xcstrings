@@ -1,0 +1,60 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "characters.emptyResponse" : {
+      "comment" : "При отображении пустого списка CharactersList",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are no characters yet. Pull to refresh"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Здесь еще нет персонажей. Потяните вверх для обновления"
+          }
+        }
+      }
+    },
+    "characters.genderTitle" : {
+      "comment" : "Пол персонажа",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gender:"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пол:"
+          }
+        }
+      }
+    },
+    "characters.lastLocationTitle" : {
+      "comment" : "Последняя известная локация персонажа",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last location:"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последняя локация:"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

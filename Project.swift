@@ -12,7 +12,9 @@ let project = Project.app(
 	appVersionBuild: Constants.appVersionBuild.description,
 	destinations: .iOS,
 	deploymentTargets: Constants.getDeploymentTarget(),
-	externalDependencies: [],
+	externalDependencies: [
+		"DITranquillity"
+	],
 	targetDependencies: [],
 	moduleTargets: [
 		makeNetworkingKitModule(),
@@ -29,11 +31,10 @@ func makeNetworkingKitModule() -> Module {
 		name: "NetworkingKit",
 		path: "NetworkingKit",
 		exampleAppDependencies: [],
-		frameworkDependencies: [],
+		frameworkDependencies: [
+			.external(name:"DITranquillity")
+		],
 		apiDependencies: [],
-		exampleResources: [],
-		frameworkResources: [],
-		testResources: [],
 		targets: [
 			.api,
 			.framework,
@@ -50,9 +51,6 @@ func makeCommonModule() -> Module {
 		exampleAppDependencies: [],
 		frameworkDependencies: [],
 		apiDependencies: [],
-		exampleResources: [],
-		frameworkResources: [],
-		testResources: [],
 		targets: [.api]
 	)
 }
@@ -64,9 +62,6 @@ func makeUIComponentsModule() -> Module {
 		exampleAppDependencies: [],
 		frameworkDependencies: [],
 		apiDependencies: [],
-		exampleResources: [],
-		frameworkResources: [],
-		testResources: [],
 		targets: [
 			.uiTests,
 			.testing,
@@ -85,14 +80,12 @@ func makeCharactersModule() -> Module {
 		],
 		frameworkDependencies: [
 			.target(name: "UIComponents"),
-			.external(name: "ComposableArchitecture")
+			.external(name:"DITranquillity")
 		],
 		apiDependencies: [
 			.target(name: "NetworkingKitAPI"),
 			.target(name: "Common"),
 		],
-		exampleResources: [],
-		frameworkResources: [],
-		testResources: []
+		isExampleTargetNeedsResources: true
 	)
 }
