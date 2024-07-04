@@ -73,7 +73,7 @@ struct CharactersListView: CharactersListViewAPI {
 			}
 		}
 		.refreshable {
-			viewModel.performAction(.loadCharacters)
+			viewModel.performAction(.reset(.loadCharacters))
 		}
 	}
 }
