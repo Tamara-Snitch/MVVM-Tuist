@@ -10,6 +10,7 @@ let package = Package(
 
 fileprivate enum ExternalDependency: CaseIterable {
 	case DITranquillity
+	case NukeUI
 }
 
 // MARK: Private Properties
@@ -37,6 +38,8 @@ fileprivate extension ExternalDependency {
 		switch self {
 		case .DITranquillity:
 			name = "DITranquillity"
+		case .NukeUI:
+			name = "NukeUI"
 		}
 		return name
 	}
@@ -47,6 +50,8 @@ fileprivate extension ExternalDependency {
 		switch self {
 		case .DITranquillity:
 			url = "https://github.com/ivlevAstef/DITranquillity.git"
+		case .NukeUI:
+			url = "https://github.com/kean/Nuke.git"
 		}
 		return url
 	}
@@ -57,6 +62,8 @@ fileprivate extension ExternalDependency {
 		switch self {
 		case .DITranquillity:
 			requirement = .from("4.6.0")
+		case .NukeUI:
+			requirement = .from("12.7.3")
 		}
 		return requirement
 	}

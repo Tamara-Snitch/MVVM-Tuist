@@ -60,7 +60,9 @@ func makeUIComponentsModule() -> Module {
 		name: "UIComponents",
 		path: "UIComponents",
 		exampleAppDependencies: [],
-		frameworkDependencies: [],
+		frameworkDependencies: [
+			.external(name: "NukeUI")
+		],
 		apiDependencies: [],
 		targets: [
 			.uiTests,
