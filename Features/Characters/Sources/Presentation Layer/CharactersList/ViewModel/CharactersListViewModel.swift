@@ -18,16 +18,10 @@ final class CharactersListViewModel: ObservableObject {
 	}
 
 	struct State {
-		var isLoading: Bool
-		var characters: [CharacterDomain]
+		var isLoading: Bool = false
+		var characters: [CharacterDomain] = []
 		var errorMessage: String?
 		var selectedGridStyle: GridStyle = .list
-
-		public init() {
-			isLoading = false
-			characters = []
-			errorMessage = nil
-		}
 	}
 
 	// MARK: - Internal properties
@@ -48,7 +42,7 @@ final class CharactersListViewModel: ObservableObject {
 		self.getCharactersUseCase = getCharactersUseCase
 	}
 
-	// MARK: Internal methods
+	// MARK: - Internal methods
 
 	func performAction(_ action: Action) {
 		switch action {
