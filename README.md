@@ -2,5 +2,4 @@
 <ol>
 <li>tuist install</li>
 <li>tuist generate</li>
-<li>open *.xcworkspace</li>
 </ol>
