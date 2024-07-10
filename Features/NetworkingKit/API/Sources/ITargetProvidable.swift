@@ -48,7 +48,8 @@ public extension ITargetProvidable {
 				return .init(name: item.key, value: value)
 			}
 		}
-		guard let url = urlComponents.url else {
+		guard let url = urlComponents.url,
+					isURLValid(url) else {
 			throw ApiError.urlError
 		}
 
@@ -67,5 +68,18 @@ public extension ITargetProvidable {
 			catch { throw ApiError.encodingBodyError }
 		}
 		return urlRequest
+	}
+
+	private func isURLValid(_ url: URL) -> Bool {
+		let absoluteURLString = url.absoluteString
+		let types: NSTextCheckingResult.CheckingType = [.link]
+		let detector = try? NSDataDetector(types: types.rawValue)
+		guard let detector,
+					!absoluteURLString.isEmpty else { return false }
+		return detector.numberOfMatches(
+			in: absoluteURLString,
+			options: NSRegularExpression.MatchingOptions(rawValue: .zero),
+			range: NSMakeRange(.zero, absoluteURLString.count)
+		) > 0
 	}
 }
