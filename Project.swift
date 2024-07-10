@@ -10,8 +10,8 @@ let project = Project.app(
 	developmentTeam: Constants.developmentTeam,
 	appVersion: Constants.appVersion,
 	appVersionBuild: Constants.appVersionBuild.description,
-	destinations: .iOS,
-	deploymentTargets: Constants.getDeploymentTarget(),
+	destinations: Constants.destinations,
+	deploymentTargets: Constants.deploymentTargets,
 	externalDependencies: [
 		"DITranquillity"
 	],

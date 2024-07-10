@@ -18,9 +18,8 @@ public enum Constants {
 	public static let appVersionBuild = 1
 	/// Относительный путь к модулям-фичам приложения
 	public static let featuresPath: String = "Features"
-
-	/// Метод получения минимальной версии приложения
-	public static func getDeploymentTarget() -> DeploymentTargets {
-		.iOS(Constants.iOSTargetVersion)
-	}
+	/// Минимальные версии целевых платформ
+	public static let deploymentTargets: DeploymentTargets = .iOS(Constants.iOSTargetVersion)
+	/// Целевые платформы
+	public static let destinations: Destinations = [.iPhone]
 }
