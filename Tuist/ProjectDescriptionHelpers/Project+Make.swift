@@ -106,10 +106,11 @@ private extension Project {
 		let frameworkPath = "\(Constants.featuresPath)/\(module.path)"
 
 		let targets = module.targets.map { uFeatureTarget in
+			let isResourcesNeeded = module.targetsWithResources.contains(uFeatureTarget)
 			let target: Target
 			switch uFeatureTarget {
 			case .exampleApp:
-				let resourcesPath: ResourceFileElements? = module.isExampleTargetNeedsResources
+				let resourcesPath: ResourceFileElements? = isResourcesNeeded
 				? ["\(frameworkPath)/Example/Resources/**"] : nil
 
 				let dependencies = module.exampleAppDependencies
@@ -130,7 +131,7 @@ private extension Project {
 					dependencies: dependencies
 				)
 			case .unitTests:
-				let resourcesPath: ResourceFileElements? = module.isTestTargetsNeedsResources
+				let resourcesPath: ResourceFileElements? = isResourcesNeeded
 				? ["\(frameworkPath)/Tests/UnitTests/Resources/**"] : nil
 
 				target = .target(
@@ -138,14 +139,14 @@ private extension Project {
 					destinations: destinations,
 					product: .unitTests,
 					bundleId: "\(Constants.appBundleId).\(module.name)UnitTests",
-					deploymentTargets: nil,
+					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/Tests/UnitTests/Configs/\(module.name)UnitTests-Info.plist",
 					sources: ["\(frameworkPath)/Tests/UnitTests/**"],
 					resources: resourcesPath,
 					dependencies: [.target(name: module.name), .target(name: "\(module.name)Testing")]
 				)
 			case .uiTests:
-				let resourcesPath: ResourceFileElements? = module.isTestTargetsNeedsResources
+				let resourcesPath: ResourceFileElements? = isResourcesNeeded
 				? ["\(frameworkPath)/Tests/UITests/Resources/**"] : nil
 
 				target = .target(
@@ -153,13 +154,16 @@ private extension Project {
 					destinations: destinations,
 					product: .uiTests,
 					bundleId: "\(Constants.appBundleId).\(module.name)UITests",
-					deploymentTargets: nil,
+					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/Tests/UITests/Configs/\(module.name)UITests-Info.plist",
 					sources: ["\(frameworkPath)/Tests/UITests/**"],
-					resources: module.isTestTargetsNeedsResources ? resourcesPath : nil,
+					resources: resourcesPath,
 					dependencies: [.target(name: module.name), .target(name: "\(module.name)Testing")]
 				)
 			case .testing:
+				let resourcesPath: ResourceFileElements? = isResourcesNeeded
+				? ["\(frameworkPath)/Testing/Resources/**"] : nil
+
 				target = .target(
 					name: "\(module.name)Testing",
 					destinations: destinations,
@@ -168,10 +172,11 @@ private extension Project {
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/Testing/Configs/\(module.name)Testing-Info.plist",
 					sources: ["\(frameworkPath)/Testing/Sources/**"],
+					resources: resourcesPath,
 					dependencies: [.target(name: "\(module.name)API")]
 				)
 			case .framework:
-				let resourcesPath: ResourceFileElements? = module.isFrameworkTargetNeedsResources
+				let resourcesPath: ResourceFileElements? = isResourcesNeeded
 				? ["\(frameworkPath)/Resources/**"] : nil
 
 				var dependencies = module.frameworkDependencies

@@ -6,9 +6,7 @@ public struct Module {
 	public let exampleAppDependencies: [TargetDependency]
 	public let frameworkDependencies: [TargetDependency]
 	public let apiDependencies: [TargetDependency]
-	public let isExampleTargetNeedsResources: Bool
-	public let isFrameworkTargetNeedsResources: Bool
-	public let isTestTargetsNeedsResources: Bool
+	public let targetsWithResources: Set<FeatureTarget>
 	public let targets: Set<FeatureTarget>
 
 	/// Инициализатор модели Модуля
@@ -18,9 +16,7 @@ public struct Module {
 	///  - exampleAppDependencies: Зависимости таргета 'Example'
 	///  - frameworkDependencies: Зависимости  таргета 'Framework''
 	///  - apiDependencies: Зависимости таргета 'API'
-	///  - isExampleTargetNeedsResources: Флаг необходимости генерации директории для ресурсов таргета 'Example'
-	///  - isFrameworkTargetNeedsResources: Флаг необходимости генерации директории для ресурсов таргета  'Framework'
-	///  - isTestTargetsNeedsResources: Флаг необходимости генерации директории для ресурсов таргетов 'UnitTests' и 'UITests'
+	///  - targetsWithResources: Таргеты модули, для которых необходимо генерации директории для ресурсов
 	///  - targets: Необходимые для модуля таргеты, по умолчанию создаются все согласно uFeature-архитектуре
 	/// - Returns: Сконфигурированный модуль типа Module
 	public init(
@@ -29,9 +25,7 @@ public struct Module {
 		exampleAppDependencies: [TargetDependency],
 		frameworkDependencies: [TargetDependency],
 		apiDependencies: [TargetDependency],
-		isExampleTargetNeedsResources: Bool = false,
-		isFrameworkTargetNeedsResources: Bool = false,
-		isTestTargetsNeedsResources: Bool = false,
+		targetsWithResources: Set<FeatureTarget> = [],
 		targets: Set<FeatureTarget> = Set(FeatureTarget.allCases)
 	) {
 		self.name = name
@@ -39,9 +33,7 @@ public struct Module {
 		self.exampleAppDependencies = exampleAppDependencies
 		self.frameworkDependencies = frameworkDependencies
 		self.apiDependencies = apiDependencies
-		self.isExampleTargetNeedsResources = isExampleTargetNeedsResources
-		self.isFrameworkTargetNeedsResources = isFrameworkTargetNeedsResources
-		self.isTestTargetsNeedsResources = isTestTargetsNeedsResources
+		self.targetsWithResources = targetsWithResources
 		self.targets = targets
 	}
 }

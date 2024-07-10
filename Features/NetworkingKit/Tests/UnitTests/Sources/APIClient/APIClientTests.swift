@@ -42,8 +42,10 @@ final class NetworkingKitUnitTests: XCTestCase {
 			mockFileURL: mockFileURL
 		)
 		let expectedResponse = Post.mocked
+
 		// When
 		let response = try await sut.request(target: givenTarget, response: Post.self)
+
 		// Then
 		XCTAssertEqual(response, expectedResponse)
 	}

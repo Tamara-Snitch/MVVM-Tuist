@@ -13,7 +13,7 @@ import CharactersTesting
 
 final class CharactersReducerTests: XCTestCase {
 
-	private var sut: CharactersListReducer!
+	private var sut: CharactersListViewModel!
 	
     override func setUpWithError() throws {
         super.setUp()

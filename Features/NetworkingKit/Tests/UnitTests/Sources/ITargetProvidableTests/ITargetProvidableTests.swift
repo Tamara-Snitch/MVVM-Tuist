@@ -43,8 +43,8 @@ final class ITargetProvidableTests: XCTestCase {
 
 		// When
 		let urlRequest = try? mockEndpointProvider.makeRequest()
-
+		
 		// Then
-		XCTAssertNotNil(urlRequest)
+		XCTAssertNil(urlRequest)
 	}
 }

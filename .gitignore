@@ -24,7 +24,7 @@ DerivedData
 *.xcworkspace
 
 ### Tuist derived files ###
-graph.dot
+graph.*
 Derived/
 Tuist/Dependencies/
 Tuist/.build

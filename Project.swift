@@ -35,6 +35,7 @@ func makeNetworkingKitModule() -> Module {
 			.external(name:"DITranquillity")
 		],
 		apiDependencies: [],
+		targetsWithResources: [.unitTests],
 		targets: [
 			.api,
 			.framework,
@@ -88,6 +89,6 @@ func makeCharactersModule() -> Module {
 			.target(name: "NetworkingKitAPI"),
 			.target(name: "Common"),
 		],
-		isExampleTargetNeedsResources: true
+		targetsWithResources: [.exampleApp]
 	)
 }
