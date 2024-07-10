@@ -44,7 +44,7 @@ public extension Project {
 		targets += moduleTargets.flatMap({
 			makeFrameworkTargets(
 				module: $0,
-				destinations: .iOS,
+				destinations: destinations,
 				deploymentTargets: deploymentTargets
 			)
 		})
@@ -79,7 +79,7 @@ private extension Project {
 	) -> [Target] {
 		let mainTarget: Target = .target(
 			name: name,
-			destinations: .iOS,
+			destinations: destinations,
 			product: .app,
 			bundleId: Constants.appBundleId,
 			deploymentTargets: deploymentTargets,

@@ -9,6 +9,7 @@
 import Common
 import CharactersAPI
 import SwiftUI
+import NukeUI
 
 struct CharacterListCard: View {
 	private enum Constants {
@@ -41,19 +42,22 @@ struct CharacterListCard: View {
 
 	// MARK: - Private properties
 
+	@MainActor
 	@ViewBuilder
 	private var characterImage: some View {
-		AsyncImage(url: character.imageURL) { image in
-			image
-				.resizable()
-				.scaledToFill()
-				.frame(maxWidth: Constants.imageWidth, alignment: .top)
-				.clipped()
-		} placeholder: {
-			ProgressView()
-				.controlSize(.large)
-				.tint(.white)
-				.frame(width: Constants.imageWidth, alignment: .center)
+		LazyImage(url: character.imageURL) { imageState in
+			if let image = imageState.image {
+				image
+					.resizable()
+					.scaledToFill()
+					.frame(maxWidth: Constants.imageWidth, alignment: .top)
+					.clipped()
+			} else {
+				ProgressView()
+					.controlSize(.large)
+					.tint(.white)
+					.frame(width: Constants.imageWidth, alignment: .center)
+			}
 		}
 	}
 

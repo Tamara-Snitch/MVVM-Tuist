@@ -28,3 +28,9 @@ graph.dot
 Derived/
 Tuist/Dependencies/
 Tuist/.build
+
+# Swift Package Manager
+*.resolved
+
+# Mise
+*mise.*
