@@ -19,6 +19,28 @@ public struct CharactersResponse: Decodable {
 	public let gender: String
 	public let image: String?
 	public let location: Location
+
+	// MARK: - Init
+
+	public init(
+		id: Int,
+		name: String,
+		status: String,
+		species: String,
+		type: String,
+		gender: String,
+		image: String?,
+		location: Location
+	) {
+		self.id = id
+		self.name = name
+		self.status = status
+		self.species = species
+		self.type = type
+		self.gender = gender
+		self.image = image
+		self.location = location
+	}
 }
 
 // MARK: - Location
@@ -26,6 +48,11 @@ public struct CharactersResponse: Decodable {
 public extension CharactersResponse {
 	struct Location: Decodable {
 		public let name: String
+
+		// MARK: - Init
+
+		public init(name: String) {
+			self.name = name
+		}
 	}
 }
-

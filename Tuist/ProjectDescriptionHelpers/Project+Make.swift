@@ -10,7 +10,7 @@ public extension Project {
 	///  - appVersionBuild: Актуальная версия билда
 	///  - destinations: Целевые платформы
 	///  - deploymentTargets: Минимальные версии целевых платформ
-	///  - externalDependencies: Внешние зависимости(Передаются только названия)
+	///  - externalDependencies: Внешние зависимости
 	///  - targetDependencies: Внутренние зависимости(Модули/таргеты проекта)
 	///  - moduleTargets: Модули проекта
 	/// - Returns: Сконфигурированный проект типа Project
@@ -22,17 +22,13 @@ public extension Project {
 		appVersionBuild: String,
 		destinations: Destinations,
 		deploymentTargets: DeploymentTargets?,
-		externalDependencies: [String],
+		externalDependencies: [TargetDependency],
 		targetDependencies: [TargetDependency],
 		moduleTargets: [Module]
 	) -> Project {
 		var dependencies = moduleTargets.map { TargetDependency.target(name: $0.name) }
 		dependencies.append(contentsOf: targetDependencies)
-
-		let externalTargetDependencies = externalDependencies.map {
-			TargetDependency.external(name: $0)
-		}
-		dependencies.append(contentsOf: externalTargetDependencies)
+		dependencies.append(contentsOf: externalDependencies)
 
 		var targets = makeAppTargets(
 			name: name,
@@ -167,7 +163,7 @@ private extension Project {
 				target = .target(
 					name: "\(module.name)Testing",
 					destinations: destinations,
-					product: .staticFramework,
+					product: .framework,
 					bundleId: "\(Constants.appBundleId).\(module.name)Testing",
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/Testing/Configs/\(module.name)Testing-Info.plist",
@@ -187,7 +183,7 @@ private extension Project {
 				target = .target(
 					name: module.name,
 					destinations: destinations,
-					product: .staticFramework,
+					product: .framework,
 					bundleId: "\(Constants.appBundleId).\(module.name)",
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/Configs/\(module.name)-Info.plist",
@@ -200,7 +196,7 @@ private extension Project {
 				target = .target(
 					name: moduleName,
 					destinations: destinations,
-					product: .staticFramework,
+					product: .framework,
 					bundleId: "\(Constants.appBundleId).\(moduleName)",
 					deploymentTargets: deploymentTargets,
 					infoPlist: "\(frameworkPath)/API/Configs/\(moduleName)-Info.plist",

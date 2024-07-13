@@ -1,39 +1,36 @@
 //
-// NetworkingKitUnitTests.swift
+// NetworkingKitTests.swift
 // NetworkingKit
 //
 //  Created by Kirill Prokoptsov on 30.04.2024.
 //  Copyright © 2024 TamaraSnitch. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
 import NetworkingKitTesting
+@testable import NetworkingKitAPI
 @testable import NetworkingKit
 
-final class NetworkingKitUnitTests: XCTestCase {
+struct NetworkingKitTests {
 
 	// MARK: Private properties
 
-	private var sut: APIClient!
+	private let sut: APIClient
 
-	// MARK: - Lifecycle
+	private let mockFileURL: URL? = {
+		Bundle.NetworkingKitTesting.url(forResource: "Posts", withExtension: "json")
+	}()
 
-	override func setUp() {
-		super.setUp()
-		sut = .init(session: URLSession.mockedSession)
-	}
+	// MARK: - Init
 
-	override func tearDown() {
-		super.tearDown()
-		sut = nil
+	init() {
+		self.sut = .init(session: .mockedSession)
 	}
 
 	// MARK: - Test methods
 
-	func testRequest_shouldSucceed() async throws {
-		let bundle = Bundle(for: type(of: self))
-		let mockFileURL = bundle.url(forResource: "Posts", withExtension: "json")
-
+	@Test func getPosts_shouldSucceed() async {
 		// Given
 		let givenTarget = MockRequestTarget(
 			baseURL: "example.com",
@@ -44,9 +41,55 @@ final class NetworkingKitUnitTests: XCTestCase {
 		let expectedResponse = Post.mocked
 
 		// When
-		let response = try await sut.request(target: givenTarget, response: Post.self)
+		let response = try? await sut.request(target: givenTarget, response: Post.self)
 
 		// Then
-		XCTAssertEqual(response, expectedResponse)
+		#expect(response == expectedResponse)
+	}
+
+	@Test func getPosts_shouldFail_ResponseType() async {
+		// Given
+		let givenTarget = MockRequestTarget(
+			baseURL: "example.com",
+			path: "/test",
+			method: .get,
+			mockFileURL: mockFileURL
+		)
+		let expectedError = ApiError.decodingError
+
+		var error: Error?
+
+		// When
+		do {
+			_ = try await sut.request(target: givenTarget, response: String.self)
+		} catch let requestError {
+			error = requestError
+		}
+
+		// Then
+		#expect((error as? ApiError) == expectedError)
+	}
+
+	@Test func getPosts_shouldFail_MockFileURL() async throws {
+		// Given
+		let givenTarget = MockRequestTarget(
+			baseURL: "example.com",
+			path: "/test",
+			method: .get,
+			mockFileURL: URL(string: "badURL")
+		)
+		let expectedError = ApiError.mockFileError
+
+		var error: Error?
+
+		// When
+		do {
+			_ = try await sut.request(target: givenTarget, response: Post.self)
+		} catch let requestError {
+			error = requestError
+		}
+
+		// Then
+		#expect((error as? ApiError) == expectedError)
 	}
 }
