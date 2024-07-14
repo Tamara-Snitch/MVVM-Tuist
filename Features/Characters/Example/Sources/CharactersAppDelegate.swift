@@ -8,7 +8,6 @@
 
 import DITranquillity
 import NetworkingKitAPI
-import NetworkingKitTesting
 import CharactersAPI
 import Characters
 import CharactersTesting
@@ -24,7 +23,10 @@ final class CharactersAppDelegate: NSObject, UIApplicationDelegate {
 	private let container: DIContainer = {
 		let container = DIContainer()
 
-		container.append(framework: MockNetworkingKitFramework.self)
+		container.register(MockAPIClient.init) { arg($0) }
+			.as(IAPIRequestable.self)
+			.lifetime(.single)
+
 		container.append(framework: CharactersFramework.self)
 		return container
 	}()
