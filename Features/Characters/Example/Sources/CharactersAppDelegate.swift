@@ -7,9 +7,11 @@
 //
 
 import DITranquillity
-import NetworkingKit
+import NetworkingKitAPI
+import NetworkingKitTesting
 import CharactersAPI
 import Characters
+import CharactersTesting
 import SwiftUI
 
 final class CharactersAppDelegate: NSObject, UIApplicationDelegate {
@@ -21,7 +23,8 @@ final class CharactersAppDelegate: NSObject, UIApplicationDelegate {
 
 	private let container: DIContainer = {
 		let container = DIContainer()
-		container.append(framework: NetworkingKitFramework.self)
+
+		container.append(framework: MockNetworkingKitFramework.self)
 		container.append(framework: CharactersFramework.self)
 		return container
 	}()
@@ -29,11 +32,25 @@ final class CharactersAppDelegate: NSObject, UIApplicationDelegate {
 	// MARK: - Internal methods
 
 	func makeCharacterListView() -> any View {
-		let view: any CharactersListViewAPI = container.resolve(
-			arguments: AnyArguments(
-				for: GetCharactersRemoteDataSource.self,
-				args: Constants.rickAndMortyURL
+		var arguments = AnyArguments()
+		arguments.addArgs(
+			for: MockAPIClient.self,
+			args: Result<MockAPIClient.SuccessType,
+			ApiError>.success(
+				.mockFile(
+					Bundle.charactersTesting.url(forResource: "Characters", withExtension: "json")!
+				)
 			)
+		)
+
+
+		arguments.addArgs(
+			for: GetCharactersRemoteDataSource.self,
+			args: Constants.rickAndMortyURL
+		)
+
+		let view: any CharactersListViewAPI = container.resolve(
+			arguments: arguments
 		)
 		return view
 	}
