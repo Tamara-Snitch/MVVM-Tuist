@@ -10,7 +10,7 @@ public extension Project {
 	///  - appVersionBuild: Актуальная версия билда
 	///  - destinations: Целевые платформы
 	///  - deploymentTargets: Минимальные версии целевых платформ
-	///  - externalDependencies: Внешние зависимости(Передаются только названия)
+	///  - externalDependencies: Внешние зависимости
 	///  - targetDependencies: Внутренние зависимости(Модули/таргеты проекта)
 	///  - moduleTargets: Модули проекта
 	/// - Returns: Сконфигурированный проект типа Project
@@ -22,17 +22,13 @@ public extension Project {
 		appVersionBuild: String,
 		destinations: Destinations,
 		deploymentTargets: DeploymentTargets?,
-		externalDependencies: [String],
+		externalDependencies: [TargetDependency],
 		targetDependencies: [TargetDependency],
 		moduleTargets: [Module]
 	) -> Project {
 		var dependencies = moduleTargets.map { TargetDependency.target(name: $0.name) }
 		dependencies.append(contentsOf: targetDependencies)
-
-		let externalTargetDependencies = externalDependencies.map {
-			TargetDependency.external(name: $0)
-		}
-		dependencies.append(contentsOf: externalTargetDependencies)
+		dependencies.append(contentsOf: externalDependencies)
 
 		var targets = makeAppTargets(
 			name: name,
@@ -105,9 +101,9 @@ private extension Project {
 	) -> [Target] {
 		let frameworkPath = "\(Constants.featuresPath)/\(module.path)"
 
-		let targets = module.targets.map { uFeatureTarget in
+		let frameworks = module.targets.flatMap { uFeatureTarget in
 			let isResourcesNeeded = module.targetsWithResources.contains(uFeatureTarget)
-			let target: Target
+			var targets: [Target]
 			switch uFeatureTarget {
 			case .exampleApp:
 				let resourcesPath: ResourceFileElements? = isResourcesNeeded
@@ -119,62 +115,84 @@ private extension Project {
 					.target(name: module.name),
 					.target(name: "\(module.name)Testing")
 				]
-				target = .target(
-					name: "\(module.name)ExampleApp",
-					destinations: destinations,
-					product: .app,
-					bundleId: "\(Constants.appBundleId).\(module.name)ExampleApp",
-					deploymentTargets: deploymentTargets,
-					infoPlist: "\(frameworkPath)/Example/Configs/\(module.name)ExampleApp-Info.plist",
-					sources: ["\(frameworkPath)/Example/Sources/**"],
-					resources: resourcesPath,
-					dependencies: dependencies
-				)
+				targets = [
+					.target(
+						name: "\(module.name)ExampleApp",
+						destinations: destinations,
+						product: .app,
+						bundleId: "\(Constants.appBundleId).\(module.name)ExampleApp",
+						deploymentTargets: deploymentTargets,
+						infoPlist: "\(frameworkPath)/Example/Configs/\(module.name)ExampleApp-Info.plist",
+						sources: ["\(frameworkPath)/Example/Sources/**"],
+						resources: resourcesPath,
+						dependencies: dependencies
+					)
+				]
 			case .unitTests:
 				let resourcesPath: ResourceFileElements? = isResourcesNeeded
 				? ["\(frameworkPath)/Tests/UnitTests/Resources/**"] : nil
 
-				target = .target(
-					name: "\(module.name)UnitTests",
-					destinations: destinations,
-					product: .unitTests,
-					bundleId: "\(Constants.appBundleId).\(module.name)UnitTests",
-					deploymentTargets: deploymentTargets,
-					infoPlist: "\(frameworkPath)/Tests/UnitTests/Configs/\(module.name)UnitTests-Info.plist",
-					sources: ["\(frameworkPath)/Tests/UnitTests/**"],
-					resources: resourcesPath,
-					dependencies: [.target(name: module.name), .target(name: "\(module.name)Testing")]
-				)
+				targets = [
+					.target(
+						name: "\(module.name)UnitTests",
+						destinations: destinations,
+						product: .unitTests,
+						bundleId: "\(Constants.appBundleId).\(module.name)UnitTests",
+						deploymentTargets: deploymentTargets,
+						infoPlist: "\(frameworkPath)/Tests/UnitTests/Configs/\(module.name)UnitTests-Info.plist",
+						sources: ["\(frameworkPath)/Tests/UnitTests/**"],
+						resources: resourcesPath,
+						dependencies: [.target(name: module.name), .target(name: "\(module.name)Testing")]
+					)
+				]
 			case .uiTests:
 				let resourcesPath: ResourceFileElements? = isResourcesNeeded
 				? ["\(frameworkPath)/Tests/UITests/Resources/**"] : nil
 
-				target = .target(
-					name: "\(module.name)UITests",
-					destinations: destinations,
-					product: .uiTests,
-					bundleId: "\(Constants.appBundleId).\(module.name)UITests",
-					deploymentTargets: deploymentTargets,
-					infoPlist: "\(frameworkPath)/Tests/UITests/Configs/\(module.name)UITests-Info.plist",
-					sources: ["\(frameworkPath)/Tests/UITests/**"],
-					resources: resourcesPath,
-					dependencies: [.target(name: module.name), .target(name: "\(module.name)Testing")]
-				)
+				targets = [
+					.target(
+						name: "\(module.name)UITests",
+						destinations: destinations,
+						product: .uiTests,
+						bundleId: "\(Constants.appBundleId).\(module.name)UITests",
+						deploymentTargets: deploymentTargets,
+						infoPlist: "\(frameworkPath)/Tests/UITests/Configs/\(module.name)UITests-Info.plist",
+						sources: ["\(frameworkPath)/Tests/UITests/**"],
+						resources: resourcesPath,
+						dependencies: [.target(name: module.name), .target(name: "\(module.name)Testing")]
+					)
+				]
 			case .testing:
-				let resourcesPath: ResourceFileElements? = isResourcesNeeded
-				? ["\(frameworkPath)/Testing/Resources/**"] : nil
+				targets = [
+					.target(
+						name: "\(module.name)Testing",
+						destinations: destinations,
+						product: .staticFramework,
+						bundleId: "\(Constants.appBundleId).\(module.name)Testing",
+						deploymentTargets: deploymentTargets,
+						infoPlist: "\(frameworkPath)/Testing/Configs/\(module.name)Testing-Info.plist",
+						sources: ["\(frameworkPath)/Testing/Sources/**"],
+						dependencies: [
+							.target(name: "\(module.name)API"),
+							isResourcesNeeded ? .target(name: "\(module.name)TestingResources") : nil
+						].compactMap { $0 }
+					)
+				]
 
-				target = .target(
-					name: "\(module.name)Testing",
-					destinations: destinations,
-					product: .staticFramework,
-					bundleId: "\(Constants.appBundleId).\(module.name)Testing",
-					deploymentTargets: deploymentTargets,
-					infoPlist: "\(frameworkPath)/Testing/Configs/\(module.name)Testing-Info.plist",
-					sources: ["\(frameworkPath)/Testing/Sources/**"],
-					resources: resourcesPath,
-					dependencies: [.target(name: "\(module.name)API")]
-				)
+				if isResourcesNeeded {
+					targets.append(
+						.target(
+							name: "\(module.name)TestingResources",
+							destinations: destinations,
+							product: .framework,
+							bundleId: "\(Constants.appBundleId).\(module.name)TestingResources",
+							deploymentTargets: deploymentTargets,
+							infoPlist: "\(frameworkPath)/TestingResources/Configs/\(module.name)TestingResources-Info.plist",
+							sources: ["\(frameworkPath)/TestingResources/Sources/**"],
+							resources: ["\(frameworkPath)/TestingResources/Resources/**"]
+						)
+					)
+				}
 			case .framework:
 				let resourcesPath: ResourceFileElements? = isResourcesNeeded
 				? ["\(frameworkPath)/Resources/**"] : nil
@@ -184,33 +202,38 @@ private extension Project {
 					dependencies.append(.target(name: "\(module.name)API"))
 				}
 
-				target = .target(
-					name: module.name,
-					destinations: destinations,
-					product: .staticFramework,
-					bundleId: "\(Constants.appBundleId).\(module.name)",
-					deploymentTargets: deploymentTargets,
-					infoPlist: "\(frameworkPath)/Configs/\(module.name)-Info.plist",
-					sources: ["\(frameworkPath)/Sources/**"],
-					resources: resourcesPath,
-					dependencies: dependencies
-				)
+				targets = [
+					.target(
+						name: module.name,
+						destinations: destinations,
+						product: .staticFramework,
+						bundleId: "\(Constants.appBundleId).\(module.name)",
+						deploymentTargets: deploymentTargets,
+						infoPlist: "\(frameworkPath)/Configs/\(module.name)-Info.plist",
+						sources: ["\(frameworkPath)/Sources/**"],
+						resources: resourcesPath,
+						dependencies: dependencies
+					)
+				]
 			case .api:
 				let moduleName = module.targets.count > 1 ? "\(module.name)API" : module.name
-				target = .target(
-					name: moduleName,
-					destinations: destinations,
-					product: .staticFramework,
-					bundleId: "\(Constants.appBundleId).\(moduleName)",
-					deploymentTargets: deploymentTargets,
-					infoPlist: "\(frameworkPath)/API/Configs/\(moduleName)-Info.plist",
-					sources: ["\(frameworkPath)/API/Sources/**"],
-					dependencies: module.apiDependencies
-				)
+				targets = [
+					.target(
+						name: moduleName,
+						destinations: destinations,
+						product: .staticFramework,
+						bundleId: "\(Constants.appBundleId).\(moduleName)",
+						deploymentTargets: deploymentTargets,
+						infoPlist: "\(frameworkPath)/API/Configs/\(moduleName)-Info.plist",
+						sources: ["\(frameworkPath)/API/Sources/**"],
+						dependencies: module.apiDependencies
+					)
+				]
 			}
-			return target
+			return targets
 		}
-		return targets
+
+		return frameworks
 	}
 
 	/// Вспомогательный метод для создания настроек проекта

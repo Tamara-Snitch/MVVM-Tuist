@@ -7,32 +7,39 @@
 //
 
 import Foundation
-import NetworkingKitAPI
 
 // MARK: - MockAPIClient
 
 public class MockAPIClient: IAPIRequestable, Mockable {
 
+	public enum SuccessType {
+		case simple(Decodable)
+		case mockFile(URL)
+	}
+
 	// MARK: Private properties
 
-	private let error: Error?
-	private let localMockFileURL: URL?
+	private let result: Result<SuccessType, ApiError>
 
 	// MARK: Init
 
-	init(error: Error? = nil, localMockFileURL: URL? = nil) {
-		self.error = error
-		self.localMockFileURL = localMockFileURL
+	public init(result: Result<SuccessType, ApiError>) {
+		self.result = result
 	}
 
 	// MARK: IAPIRequestable
 
 	public func request<T>(target: any ITargetProvidable, response: T.Type) async throws -> T where T : Decodable {
-		if let error {
+		switch result {
+		case .success(let success):
+			switch success {
+			case .simple(let decodableModel):
+				return decodableModel as! T
+			case .mockFile(let url):
+				return try! loadJSON(fileURL: url, response: response)
+			}
+		case .failure(let error):
 			throw error
-		} else {
-			let mockFileURL = (localMockFileURL ?? target.mockFileURL)!
-			return loadJSON(fileURL: mockFileURL, response: response)
 		}
 	}
 }

@@ -13,7 +13,7 @@ let project = Project.app(
 	destinations: Constants.destinations,
 	deploymentTargets: Constants.deploymentTargets,
 	externalDependencies: [
-		"DITranquillity"
+		.external(name: "DITranquillity")
 	],
 	targetDependencies: [],
 	moduleTargets: [
@@ -32,10 +32,10 @@ func makeNetworkingKitModule() -> Module {
 		path: "NetworkingKit",
 		exampleAppDependencies: [],
 		frameworkDependencies: [
-			.external(name:"DITranquillity")
+			.external(name: "DITranquillity")
 		],
 		apiDependencies: [],
-		targetsWithResources: [.unitTests],
+		targetsWithResources: [.testing],
 		targets: [
 			.api,
 			.framework,
@@ -79,16 +79,16 @@ func makeCharactersModule() -> Module {
 		name: "Characters",
 		path: "Characters",
 		exampleAppDependencies: [
-			.target(name: "NetworkingKit")
+			.target(name: "NetworkingKit"),
+			.target(name: "NetworkingKitTesting")
 		],
 		frameworkDependencies: [
-			.target(name: "UIComponents"),
-			.external(name:"DITranquillity")
+			.target(name: "UIComponents")
 		],
 		apiDependencies: [
 			.target(name: "NetworkingKitAPI"),
 			.target(name: "Common"),
 		],
-		targetsWithResources: [.exampleApp]
+		targetsWithResources: [.exampleApp, .testing]
 	)
 }

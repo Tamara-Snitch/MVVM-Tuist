@@ -12,7 +12,7 @@ import Foundation
 
 public protocol Mockable: AnyObject {
 	var bundle: Bundle { get }
-	func loadJSON<T: Decodable>(fileURL: URL, response: T.Type) -> T
+	func loadJSON<T: Decodable>(fileURL: URL, response: T.Type) throws -> T
 }
 
 
@@ -24,14 +24,14 @@ public extension Mockable {
 		Bundle(for: type(of: self))
 	}
 	
-	func loadJSON<T: Decodable>(fileURL: URL, response: T.Type) -> T {
+	func loadJSON<T: Decodable>(fileURL: URL, response: T.Type) throws -> T {
 		do {
 			let data = try Data(contentsOf: fileURL)
 			let decodedObject = try JSONDecoder().decode(response, from: data)
 			
 			return decodedObject
 		} catch {
-			fatalError("Failed to decode loaded JSON")
+			throw ApiError.decodingError
 		}
 	}
 }

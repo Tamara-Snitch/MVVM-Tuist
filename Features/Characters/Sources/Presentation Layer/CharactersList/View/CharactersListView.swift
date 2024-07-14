@@ -31,11 +31,15 @@ struct CharactersListView: CharactersListViewAPI {
 			charactersScrollView
 		}
 		.onAppear {
-			viewModel.performAction(.loadCharacters)
+			Task {
+				await viewModel.performAction(.loadCharacters)
+			}
 		}
 		.onChange(of: shouldLoadNextPage) { isNextPageNeeded in
 			guard isNextPageNeeded else { return }
-			viewModel.performAction(.loadCharacters)
+			Task {
+				await viewModel.performAction(.loadCharacters)
+			}
 		}
 	}
 
@@ -73,7 +77,9 @@ struct CharactersListView: CharactersListViewAPI {
 			}
 		}
 		.refreshable {
-			viewModel.performAction(.reset(.loadCharacters))
+			Task {
+				await viewModel.performAction(.resetAndLoad)
+			}
 		}
 	}
 }

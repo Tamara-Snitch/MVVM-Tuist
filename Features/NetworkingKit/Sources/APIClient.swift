@@ -48,16 +48,15 @@ public final class APIClient: IAPIRequestable {
 
 	// MARK: - Private methods
 
-	private func handleMockedAPIRequest<T: Decodable>(mockFileURL: URL?, response: T.Type) throws -> T {
+	private func handleMockedAPIRequest<T: Decodable>(mockFileURL: URL, response: T.Type) throws -> T {
+		guard isURLValid(mockFileURL) else {
+			throw ApiError.mockFileError
+		}
 		do {
-			guard let mockFileURL else {
-				throw ApiError.urlError
-			}
 			let data = try Data(contentsOf: mockFileURL)
 			return try jsonDecoder.decode(response, from: data)
-
 		} catch {
-			throw error
+			throw ApiError.decodingError
 		}
 	}
 

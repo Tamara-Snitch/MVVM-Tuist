@@ -6,45 +6,56 @@
 //  Copyright © 2024 TamaraSnitch. All rights reserved.
 //
 
-import XCTest
+import Testing
 import NetworkingKitTesting
+@testable import NetworkingKitAPI
 @testable import NetworkingKit
 
-final class ITargetProvidableTests: XCTestCase {
+struct ITargetProvidableTests {
 
-	func testMakeRequest_shouldSucceed() {
+	@Test func makeRequest_shouldSucceed() {
 		// Given
 		let mockEndpointProvider = MockRequestTarget(
 			baseURL: "example.com",
 			path: "/test",
 			method: .get
 		)
+		let expectedAbsoluteStringURL = "\(mockEndpointProvider.scheme)://\(mockEndpointProvider.baseURL + mockEndpointProvider.path)"
+		let expectedHttpHeaders: [String: String] = [
+			"Accept": "application/json",
+			"Content-Type": "application/json",
+			"X-Use-Cache": "true"
+		]
 
 		// When
 		let urlRequest = try? mockEndpointProvider.makeRequest()
 
 		// Then
-		XCTAssertNotNil(urlRequest)
-		XCTAssertEqual(urlRequest?.url?.absoluteString, "\(mockEndpointProvider.scheme)://\(mockEndpointProvider.baseURL + mockEndpointProvider.path)")
-		XCTAssertEqual(urlRequest?.httpMethod, mockEndpointProvider.method.rawValue)
-		XCTAssertEqual(urlRequest?.allHTTPHeaderFields?["Accept"], "application/json")
-		XCTAssertEqual(urlRequest?.allHTTPHeaderFields?["Content-Type"], "application/json")
-		XCTAssertEqual(urlRequest?.allHTTPHeaderFields?["X-Use-Cache"], "true")
+		#expect(urlRequest != nil)
+		#expect(urlRequest?.url?.absoluteString == expectedAbsoluteStringURL)
+		#expect(urlRequest?.httpMethod == mockEndpointProvider.method.rawValue)
+		#expect(urlRequest?.allHTTPHeaderFields == expectedHttpHeaders)
 	}
 
-	func testMakeRequest_shouldFail() {
+	@Test() func makeRequest_shouldFail() {
 		// Given
-
 		let mockEndpointProvider = MockRequestTarget(
 			baseURL: "",
 			path: "",
 			method: .get
 		)
+		let expectedError = ApiError.urlError
+
+		var error: Error?
 
 		// When
-		let urlRequest = try? mockEndpointProvider.makeRequest()
-		
+		do {
+			_ = try mockEndpointProvider.makeRequest()
+		} catch let urlError {
+			error = urlError
+		}
+
 		// Then
-		XCTAssertNil(urlRequest)
+		#expect((error as? ApiError) == expectedError)
 	}
 }

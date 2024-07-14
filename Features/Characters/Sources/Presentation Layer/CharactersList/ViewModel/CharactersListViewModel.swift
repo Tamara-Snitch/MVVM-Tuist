@@ -12,15 +12,15 @@ import CharactersAPI
 
 final class CharactersListViewModel: ObservableObject {
 
-	indirect enum Action {
-		case reset(Action?)
+	enum Action {
+		case resetAndLoad
 		case loadCharacters
 	}
 
 	struct State {
 		var isLoading: Bool = false
 		var characters: [CharacterDomain] = []
-		var errorMessage: String?
+		var error: Error?
 		var selectedGridStyle: GridStyle = .list
 	}
 
@@ -44,17 +44,13 @@ final class CharactersListViewModel: ObservableObject {
 
 	// MARK: - Internal methods
 
-	func performAction(_ action: Action) {
+	func performAction(_ action: Action) async {
 		switch action {
-		case .reset(let action):
+		case .resetAndLoad:
 			getCharactersUseCase.reset()
-			if let action {
-				performAction(action)
-			}
+			await fetchCharacters()
 		case .loadCharacters:
-			Task {
-				await fetchCharacters()
-			}
+			await fetchCharacters()
 		}
 	}
 
@@ -65,7 +61,7 @@ final class CharactersListViewModel: ObservableObject {
 		defer {
 			state.isLoading = false
 		}
-		guard getCharactersUseCase.hasMoreItems else { return }
+		guard hasMoreItems else { return }
 		state.isLoading = true
 
 		let result = await getCharactersUseCase.execute()
@@ -73,7 +69,7 @@ final class CharactersListViewModel: ObservableObject {
 		case .success(let charactersResponse):
 			state.characters = charactersResponse.map(CharacterDomain.init(from:))
 		case .failure(let error):
-			state.errorMessage = error.localizedDescription
+			state.error = error
 		}
 	}
 }
