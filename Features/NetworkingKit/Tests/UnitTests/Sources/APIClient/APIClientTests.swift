@@ -19,7 +19,7 @@ struct NetworkingKitTests {
 	private let sut: APIClient
 
 	private let mockFileURL: URL? = {
-		Bundle.NetworkingKitTesting.url(forResource: "Posts", withExtension: "json")
+		Bundle.networkingKitTesting.url(forResource: "Posts", withExtension: "json")
 	}()
 
 	// MARK: - Init

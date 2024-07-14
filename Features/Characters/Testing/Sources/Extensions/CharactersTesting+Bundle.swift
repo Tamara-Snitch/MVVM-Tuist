@@ -1,17 +1,16 @@
 //
-// CharactersTesting+Bundle.swift
-// CharactersTesting
+//  CharactersTesting+Bundle.swift
+//  CharactersTesting
 //
-//  Created by Kirill Prokoptsov on 20.04.2024.
+//  Created by Prokoptsov on 14.07.2024.
 //  Copyright © 2024 TamaraSnitch. All rights reserved.
 //
 
-import Foundation
-
-fileprivate final class ReferenceType { }
+import Foundation.NSBundle
+import CharactersTestingResources
 
 public extension Bundle {
-	static var CharactersTesting: Bundle {
-		Bundle(for: ReferenceType.self)
+	static var charactersTesting: Bundle {
+		Bundle(for: CharactersTestingResourcesType.self)
 	}
 }

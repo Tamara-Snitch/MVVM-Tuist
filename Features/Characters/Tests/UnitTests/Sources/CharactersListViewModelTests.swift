@@ -20,7 +20,7 @@ final class CharactersListViewModelTests {
 	private var sut: CharactersListViewModel!
 
 	private let mockFileURL: URL! = {
-		Bundle.CharactersTesting.url(forResource: "Characters", withExtension: "json")
+		Bundle.charactersTesting.url(forResource: "Characters", withExtension: "json")
 	}()
 
 	// MARK: - Test methods
