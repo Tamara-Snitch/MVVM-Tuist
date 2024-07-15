@@ -1,19 +1,17 @@
 //
-//  NetworkingKitAssembly.swift
+//  MockNetworkingKitFramework.swift
 //  NetworkingKit
 //
-//  Created by Prokoptsov on 24.06.2024.
+//  Created by Prokoptsov on 15.07.2024.
 //  Copyright © 2024 TamaraSnitch. All rights reserved.
 //
 
-import Foundation
 import NetworkingKitAPI
 import DITranquillity
 
-public final class NetworkingKitFramework: DIFramework {
+public final class MockNetworkingKitFramework: DIFramework {
 	public static func load(container: DIContainer) {
-		container.register { APIClient.init() }
+		container.register(MockAPIClient.init) { arg($0) }
 			.as(IAPIRequestable.self)
-			.lifetime(.single)
 	}
 }
