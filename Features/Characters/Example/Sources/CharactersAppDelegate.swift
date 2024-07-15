@@ -8,6 +8,7 @@
 
 import DITranquillity
 import NetworkingKitAPI
+import NetworkingKit
 import CharactersAPI
 import Characters
 import CharactersTesting
@@ -23,10 +24,7 @@ final class CharactersAppDelegate: NSObject, UIApplicationDelegate {
 	private let container: DIContainer = {
 		let container = DIContainer()
 
-		container.register(MockAPIClient.init) { arg($0) }
-			.as(IAPIRequestable.self)
-			.lifetime(.single)
-
+		container.append(framework: MockNetworkingKitFramework.self)
 		container.append(framework: CharactersFramework.self)
 		return container
 	}()
@@ -44,16 +42,9 @@ final class CharactersAppDelegate: NSObject, UIApplicationDelegate {
 				)
 			)
 		)
-
-
-		arguments.addArgs(
-			for: GetCharactersRemoteDataSource.self,
-			args: Constants.rickAndMortyURL
-		)
-
-		let view: any CharactersListViewAPI = container.resolve(
-			arguments: arguments
-		)
+		arguments.addArgs(for: GetCharactersRemoteDataSource.self, args: Constants.rickAndMortyURL)
+		
+		let view: any CharactersListViewAPI = container.resolve(arguments: arguments)
 		return view
 	}
 }

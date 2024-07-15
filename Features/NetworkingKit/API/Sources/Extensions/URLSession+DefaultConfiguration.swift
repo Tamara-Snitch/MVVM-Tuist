@@ -14,6 +14,7 @@ public extension URLSession {
 		configuration.waitsForConnectivity = true
 		configuration.timeoutIntervalForRequest = 30
 		configuration.timeoutIntervalForResource = 60
+		configuration.urlCache = nil
 		return URLSession(configuration: configuration)
 	}()
 }
