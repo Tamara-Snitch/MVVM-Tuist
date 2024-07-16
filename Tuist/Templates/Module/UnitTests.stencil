@@ -1,30 +1,28 @@
 //
-// {{ name }}UnitTests.swift
-// {{ name }}
+// {{ name }}SomeViewModelTests.swift
+// {{ name }}UnitTests
 //
 //  Created by {{ author }} on {{ date }}.
 //  Copyright © {{ year }} {{ company }}. All rights reserved.
 //
 
-import XCTest
-
+import Testing
+import {{ name }}API
+import {{ name }}Testing
 @testable import {{ name }}
-@testable import {{ name }}Testing
 
-final class {{ name }}UnitTests: XCTestCase {
-    override func setUpWithError() throws {
-        super.setUp()
-    }
+struct {{ name }}SomeViewModelTests {
 
-    override func tearDownWithError() throws {
-        super.tearDown()
-    }
+		// private var sut: {{ name }}SomeViewModel!
 
-    func test{{ name }}() {
-        // Given
+		// MARK: - Test methods
 
-        // When
+		@Test func someTest_shouldSucceed() async {
+				// Given
 
-        // Then
-    }
+				// When
+
+				// Then
+				// #expect()
+		}
 }

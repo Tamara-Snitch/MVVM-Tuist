@@ -1,0 +1,16 @@
+//
+// {{ name }}Testing+Bundle.swift
+// {{ name }}Testing
+//
+//  Created by {{ author }} on {{ date }}.
+//  Copyright © {{ year }} {{ company }}. All rights reserved.
+//
+
+import Foundation.NSBundle
+import {{ name }}TestingResources
+
+public extension Bundle {
+	static var {{ name }}Testing: Bundle {
+		Bundle(for: {{ name }}TestingResourcesType.self)
+	}
+}

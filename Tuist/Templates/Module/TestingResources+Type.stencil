@@ -1,0 +1,9 @@
+//
+// {{ name }}TestingResourcesType.swift
+// {{ name }}TestingResources
+//
+//  Created by {{ author }} on {{ date }}.
+//  Copyright © {{ year }} {{ company }}. All rights reserved.
+//
+
+public final class {{ name }}TestingResourcesType { }
