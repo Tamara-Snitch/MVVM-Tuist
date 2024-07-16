@@ -38,6 +38,7 @@ final class CharactersAppDelegate: NSObject, UIApplicationDelegate {
 			args: Result<MockAPIClient.SuccessType,
 			ApiError>.success(
 				.mockFile(
+					// swiftlint:disable:next force_unwrapping
 					Bundle.charactersTesting.url(forResource: "Characters", withExtension: "json")!
 				)
 			)

@@ -1,16 +1,79 @@
+# Список правил, которые необходимо отключить (по умолчанию включены)
 disabled_rules:
-  - line_length
-  - type_name
+  - control_statement
   - vertical_parameter_alignment
   - trailing_whitespace
+  - notification_center_detachment
 
+# Список правил, которые необходимо включить (по умолчанию отключены)
 opt_in_rules:
-  - empty_count
   - force_unwrapping
+  - closing_brace
+  - opening_brace
+  - return_arrow_whitespace
+  - trailing_semicolon
+  - statement_position
+  - closure_end_indentation
+  - closure_spacing
+  - explicit_init
+  - fatal_error_message
+  - first_where
+  - joined_default_parameter
+  - multiline_parameters
+  - overridden_super_call
+  - prohibited_super_call
+  - colon
+  - comma
+  - empty_count
 
-excluded: 
-  - ./Pods
+# Подкаталоги, в которых линтер не будет делать проверку кода
+excluded:
+  - Derived
+  - Dependencies
+  - Tuist
+  - SourcePackages
+  - Pods
+  - fastlane
 
-function_body_length:
-  warning: 50
+# Простые правила
+# для простых правил задаем уровень их важности: error или warning
+trailing_semicolon: error
+empty_count: error
+closing_brace: error
+opening_brace: error
+return_arrow_whitespace: error
+statement_position: error
+colon: error
+comma: error
+force_cast: error
+force_try: error
 
+# Настраиваемые правила
+nesting:
+  type_level: 1
+warning_threshold: 1300
+line_length: 120
+type_body_length:
+  - 400  # предупреждение
+  - 600  # ошибка
+file_length:
+  warning: 600
+  error: 900
+type_name:
+  min_length: 4
+  max_length:
+    warning: 40
+    error: 50
+identifier_name:
+  min_length:
+    error: 2
+  excluded:
+    - id
+    - to
+
+# Формат отчётности по правилам
+reporter: "xcode"  # тип отчёта по правилам, варианты: (xcode, json, csv, checkstyle, junit, html, emoji, sonarqube, markdown)
+
+# Игнорирование case при подсчете cyclomatic_complexity
+cyclomatic_complexity:
+  ignores_case_statements: true

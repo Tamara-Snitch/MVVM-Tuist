@@ -12,6 +12,7 @@ public extension Project {
 	///  - deploymentTargets: Минимальные версии целевых платформ
 	///  - externalDependencies: Внешние зависимости
 	///  - targetDependencies: Внутренние зависимости(Модули/таргеты проекта)
+	///  - scripts: Используемые основным таргетом скрипты
 	///  - moduleTargets: Модули проекта
 	/// - Returns: Сконфигурированный проект типа Project
 	static func app(
@@ -23,6 +24,7 @@ public extension Project {
 		destinations: Destinations,
 		deploymentTargets: DeploymentTargets?,
 		externalDependencies: [TargetDependency],
+		scripts: [TargetScript],
 		targetDependencies: [TargetDependency],
 		moduleTargets: [Module]
 	) -> Project {
@@ -34,7 +36,8 @@ public extension Project {
 			name: name,
 			destinations: destinations,
 			deploymentTargets: deploymentTargets,
-			dependencies: dependencies
+			dependencies: dependencies,
+			scripts: scripts
 		)
 
 		targets += moduleTargets.flatMap({
@@ -66,12 +69,14 @@ private extension Project {
 	///  - destinations: Целевые платформы
 	///  - deploymentTargets: Минимальные версии целевых платформ
 	///  - dependencies: Зависимости: внутренние и внешние
+	///  - scripts: Используемые скрипты
 	/// - Returns: Сконфигурированные основные таргеты проекта
 	private static func makeAppTargets(
 		name: String,
 		destinations: Destinations,
 		deploymentTargets: DeploymentTargets?,
-		dependencies: [TargetDependency]
+		dependencies: [TargetDependency],
+		scripts: [TargetScript]
 	) -> [Target] {
 		let mainTarget: Target = .target(
 			name: name,
@@ -82,6 +87,7 @@ private extension Project {
 			infoPlist: "\(name)/Configs/\(Constants.projectName)-Info.plist",
 			sources: ["\(name)/Sources/**"],
 			resources: ["\(name)/Resources/**"],
+			scripts: scripts,
 			dependencies: dependencies
 		)
 

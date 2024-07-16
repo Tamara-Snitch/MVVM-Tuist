@@ -29,13 +29,15 @@ public class MockAPIClient: IAPIRequestable, Mockable {
 
 	// MARK: IAPIRequestable
 
-	public func request<T>(target: any ITargetProvidable, response: T.Type) async throws -> T where T : Decodable {
+	public func request<T>(target: any ITargetProvidable, response: T.Type) async throws -> T where T: Decodable {
 		switch result {
 		case .success(let success):
 			switch success {
 			case .simple(let decodableModel):
+				// swiftlint:disable:next force_cast
 				return decodableModel as! T
 			case .mockFile(let url):
+				// swiftlint:disable:next force_try
 				return try! loadJSON(fileURL: url, response: response)
 			}
 		case .failure(let error):

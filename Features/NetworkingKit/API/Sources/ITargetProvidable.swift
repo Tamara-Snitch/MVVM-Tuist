@@ -64,8 +64,9 @@ public extension ITargetProvidable {
 			urlRequest.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 		}
 		if let body {
-			do { urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: []) }
-			catch { throw ApiError.encodingBodyError }
+			do { 
+				urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+			} catch { throw ApiError.encodingBodyError }
 		}
 		return urlRequest
 	}

@@ -16,4 +16,3 @@ public extension View {
 		modifier(LoadingStateViewModifier(isLoading: isLoading, loadingContent: loadingContent))
 	}
 }
-

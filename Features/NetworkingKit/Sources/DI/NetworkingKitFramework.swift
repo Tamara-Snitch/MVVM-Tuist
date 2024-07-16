@@ -11,7 +11,7 @@ import DITranquillity
 
 public final class NetworkingKitFramework: DIFramework {
 	public static func load(container: DIContainer) {
-		container.register { APIClient.init() }
+		container.register { APIClient() }
 			.as(IAPIRequestable.self)
 			.default()
 			.lifetime(.single)

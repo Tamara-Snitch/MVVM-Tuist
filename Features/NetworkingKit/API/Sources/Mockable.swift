@@ -15,7 +15,6 @@ public protocol Mockable: AnyObject {
 	func loadJSON<T: Decodable>(fileURL: URL, response: T.Type) throws -> T
 }
 
-
 // MARK: - Mockable extension
 
 public extension Mockable {

@@ -15,6 +15,6 @@ public enum Colors {
 	// MARK: Background
 
 	public enum Background {
-		public static let widgetPrimary = Color.init(red: 53, green: 54, blue: 59)
+		public static let widgetPrimary = Color(red: 53, green: 54, blue: 59)
 	}
 }
