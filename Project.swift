@@ -15,6 +15,7 @@ let project = Project.app(
 	externalDependencies: [
 		.external(name: "DITranquillity")
 	],
+	scripts: [.swiftLint],
 	targetDependencies: [],
 	moduleTargets: [
 		makeNetworkingKitModule(),
@@ -87,7 +88,7 @@ func makeCharactersModule() -> Module {
 		],
 		apiDependencies: [
 			.target(name: "NetworkingKitAPI"),
-			.target(name: "Common"),
+			.target(name: "Common")
 		],
 		targetsWithResources: [.exampleApp, .testing]
 	)

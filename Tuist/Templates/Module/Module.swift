@@ -43,6 +43,10 @@ fileprivate func makeTemplateItems() -> [Template.Item] {
 			path: "\(Constants.featuresPath)/\(nameAttribute)/Example/Configs/\(nameAttribute)ExampleApp-Info.plist",
 			templatePath: "AppInfoPlist.stencil"
 		),
+		.file(
+			path: "\(Constants.featuresPath)/\(nameAttribute)/Example/Resources/\(nameAttribute)ResourcesREADME.md",
+			templatePath: "ResourcesREADME.stencil"
+		),
 		// Генерация файлов UnitTests-таргета
 		.file(
 			path: "\(Constants.featuresPath)/\(nameAttribute)/Tests/UnitTests/Sources/\(nameAttribute)UnitTests.swift",
@@ -63,12 +67,25 @@ fileprivate func makeTemplateItems() -> [Template.Item] {
 		),
 		// Генерация файлов Testing-таргета
 		.file(
-			path: "\(Constants.featuresPath)/\(nameAttribute)/Testing/Sources/\(nameAttribute)Testing.swift",
-			templatePath: "Testing.stencil"
+			path: "\(Constants.featuresPath)/\(nameAttribute)/Testing/Sources/Extensions/\(nameAttribute)Testing+Bundle.swift",
+			templatePath: "Testing+Bundle.stencil"
 		),
 		.file(
 			path: "\(Constants.featuresPath)/\(nameAttribute)/Testing/Configs/\(nameAttribute)Testing-Info.plist",
 			templatePath: "DefaultInfoPlist.stencil"
+		),
+		// Генерация файлов TestingResources-таргета
+		.file(
+			path: "\(Constants.featuresPath)/\(nameAttribute)/TestingResources/Configs/\(nameAttribute)TestingResources-Info.plist",
+			templatePath: "DefaultInfoPlist.stencil"
+		),
+		.file(
+			path: "\(Constants.featuresPath)/\(nameAttribute)/TestingResources/Sources/\(nameAttribute)TestingResourcesType.swift",
+			templatePath: "TestingResources+Type.stencil"
+		),
+		.file(
+			path: "\(Constants.featuresPath)/\(nameAttribute)/TestingResources/Resources/\(nameAttribute)ResourcesREADME.md",
+			templatePath: "ResourcesREADME.stencil"
 		),
 		// Генерация файлов Framework-таргета
 		.file(

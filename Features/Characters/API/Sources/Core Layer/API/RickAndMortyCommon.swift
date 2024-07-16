@@ -22,7 +22,6 @@ public struct ResponseInfo: Decodable {
 	}
 }
 
-
 public struct RAMDecodable<T: Decodable>: Decodable {
 	public let info: ResponseInfo
 	public let results: [T]

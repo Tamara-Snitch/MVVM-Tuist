@@ -17,6 +17,6 @@ public func isURLValid(_ url: URL) -> Bool {
 	return detector.numberOfMatches(
 		in: absoluteURLString,
 		options: NSRegularExpression.MatchingOptions(rawValue: .zero),
-		range: NSMakeRange(.zero, absoluteURLString.count)
+		range: NSRange(location: .zero, length: absoluteURLString.count)
 	) > 0
 }

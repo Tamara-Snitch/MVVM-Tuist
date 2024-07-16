@@ -36,7 +36,7 @@ struct CharacterGridCard: View {
 	var body: some View {
 		GeometryReader { geometry in
 			VStack(spacing: Constants.stackSpacing) {
-				CharacterImage(width: geometry.size.width)
+				characterImage(width: geometry.size.width)
 				Text(character.name)
 					.font(.headline)
 					.lineLimit(Constants.lineLimit)
@@ -60,7 +60,7 @@ struct CharacterGridCard: View {
 
 	@MainActor
 	@ViewBuilder
-	private func CharacterImage(width: CGFloat) -> some View {
+	private func characterImage(width: CGFloat) -> some View {
 		LazyImage(url: character.imageURL) { imageState in
 			if let image = imageState.image {
 				image

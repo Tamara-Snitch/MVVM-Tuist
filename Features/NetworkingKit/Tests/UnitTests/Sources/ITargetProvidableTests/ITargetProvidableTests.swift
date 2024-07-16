@@ -20,7 +20,8 @@ struct ITargetProvidableTests {
 			path: "/test",
 			method: .get
 		)
-		let expectedAbsoluteStringURL = "\(mockEndpointProvider.scheme)://\(mockEndpointProvider.baseURL + mockEndpointProvider.path)"
+		let expectedAbsoluteStringURL =
+		"\(mockEndpointProvider.scheme)://\(mockEndpointProvider.baseURL + mockEndpointProvider.path)"
 		let expectedHttpHeaders: [String: String] = [
 			"Accept": "application/json",
 			"Content-Type": "application/json",

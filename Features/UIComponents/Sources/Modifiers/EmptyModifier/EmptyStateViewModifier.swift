@@ -15,8 +15,7 @@ public struct EmptyStateViewModifier<EmptyContent>: ViewModifier where EmptyCont
 	public func body(content: Content) -> some View {
 		if isEmpty {
 			emptyContent()
-		}
-		else {
+		} else {
 			content
 		}
 	}

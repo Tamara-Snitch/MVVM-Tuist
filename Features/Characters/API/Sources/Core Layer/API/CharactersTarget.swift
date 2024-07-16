@@ -39,14 +39,14 @@ extension CharactersTarget {
 		}
 	}
 
-	public var queryItems: [String : Any]? {
+	public var queryItems: [String: Any]? {
 		switch self {
 		case .getCharacters(_, let request):
 			return request.toDictionary
 		}
 	}
 
-	public var body: [String : Any]? {
+	public var body: [String: Any]? {
 		switch self {
 		case .getCharacters:
 			return nil
