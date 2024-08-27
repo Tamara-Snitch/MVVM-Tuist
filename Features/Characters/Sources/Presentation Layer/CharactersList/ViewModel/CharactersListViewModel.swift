@@ -9,6 +9,7 @@
 import Foundation
 import Common
 import CharactersAPI
+import ThemeManagerAPI
 
 final class CharactersListViewModel: ObservableObject {
 
@@ -33,13 +34,16 @@ final class CharactersListViewModel: ObservableObject {
 	// MARK: - Private properties
 
 	private let getCharactersUseCase: GetCharactersUseCaseAPI
+	private let themeManager: ThemeManagerAPI
 
 	// MARK: - Init
 
 	init(
-		getCharactersUseCase: GetCharactersUseCaseAPI
+		getCharactersUseCase: GetCharactersUseCaseAPI,
+		themeManager: ThemeManagerAPI
 	) {
 		self.getCharactersUseCase = getCharactersUseCase
+		self.themeManager = themeManager
 	}
 
 	// MARK: - Internal methods

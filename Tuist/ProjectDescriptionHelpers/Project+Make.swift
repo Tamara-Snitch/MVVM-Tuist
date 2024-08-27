@@ -169,6 +169,12 @@ private extension Project {
 					)
 				]
 			case .testing:
+				let dependencies = module.testingDependencies
+				+ [
+					.target(name: "\(module.name)API"),
+					isResourcesNeeded ? .target(name: "\(module.name)TestingResources") : nil
+				].compactMap { $0 }
+
 				targets = [
 					.target(
 						name: "\(module.name)Testing",
@@ -178,10 +184,7 @@ private extension Project {
 						deploymentTargets: deploymentTargets,
 						infoPlist: "\(frameworkPath)/Testing/Configs/\(module.name)Testing-Info.plist",
 						sources: ["\(frameworkPath)/Testing/Sources/**"],
-						dependencies: [
-							.target(name: "\(module.name)API"),
-							isResourcesNeeded ? .target(name: "\(module.name)TestingResources") : nil
-						].compactMap { $0 }
+						dependencies: dependencies
 					)
 				]
 

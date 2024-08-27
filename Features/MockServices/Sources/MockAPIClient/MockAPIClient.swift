@@ -1,14 +1,13 @@
 //
-//  MockAPIClient.swift
-//  NetworkingKitTesting
+//  MockAPICLient.swift
+//  MockServices
 //
-//  Created by Prokoptsov on 09.05.2024.
+//  Created by Prokoptsov on 27.08.2024.
 //  Copyright © 2024 TamaraSnitch. All rights reserved.
 //
 
 import Foundation
-
-// MARK: - MockAPIClient
+import NetworkingKitAPI
 
 public class MockAPIClient: IAPIRequestable, Mockable {
 

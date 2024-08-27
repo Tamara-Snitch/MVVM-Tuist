@@ -6,6 +6,7 @@ public struct Module {
 	public let exampleAppDependencies: [TargetDependency]
 	public let frameworkDependencies: [TargetDependency]
 	public let apiDependencies: [TargetDependency]
+	public let testingDependencies: [TargetDependency]
 	public let targetsWithResources: Set<FeatureTarget>
 	public let targets: Set<FeatureTarget>
 
@@ -15,6 +16,7 @@ public struct Module {
 	///  - path: Относительный путь модуля(Относительно директории 'Features'
 	///  - exampleAppDependencies: Зависимости таргета 'Example'
 	///  - frameworkDependencies: Зависимости  таргета 'Framework''
+	///  - testingDependencies: Зависимости таргета 'Testing'
 	///  - apiDependencies: Зависимости таргета 'API'
 	///  - targetsWithResources: Таргеты модули, для которых необходимо генерации директории для ресурсов
 	///  - targets: Необходимые для модуля таргеты, по умолчанию создаются все согласно uFeature-архитектуре
@@ -25,6 +27,7 @@ public struct Module {
 		exampleAppDependencies: [TargetDependency],
 		frameworkDependencies: [TargetDependency],
 		apiDependencies: [TargetDependency],
+		testingDependencies: [TargetDependency] = [],
 		targetsWithResources: Set<FeatureTarget> = [],
 		targets: Set<FeatureTarget> = Set(FeatureTarget.allCases)
 	) {
@@ -33,6 +36,7 @@ public struct Module {
 		self.exampleAppDependencies = exampleAppDependencies
 		self.frameworkDependencies = frameworkDependencies
 		self.apiDependencies = apiDependencies
+		self.testingDependencies = testingDependencies
 		self.targetsWithResources = targetsWithResources
 		self.targets = targets
 	}

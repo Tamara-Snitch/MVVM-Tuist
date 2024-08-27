@@ -9,15 +9,15 @@
 import CharactersAPI
 import DITranquillity
 
-public final class GetCharactersUseCasePart: DIPart {
-	public static func load(container: DIContainer) {
-		container.register(GetCharactersRemoteDataSource.init) { arg($0) }
+final class GetCharactersUseCasePart: DIPart {
+	static func load(container: DIContainer) {
+		container.register { GetCharactersRemoteDataSource(baseURL: arg($0), apiClient: $1) }
 			.as(GetCharactersDataSourceAPI.self)
 
 		container.register { GetCharactersRepository(remoteDataSource: $0) }
 			.as(GetCharactersRepositoryAPI.self)
-
-		container.register(GetCharactersUseCase.init)
+		
+		container.register { GetCharactersUseCase(repository: $0) }
 			.as(GetCharactersUseCaseAPI.self)
 	}
 }
