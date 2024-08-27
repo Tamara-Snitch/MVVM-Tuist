@@ -20,6 +20,9 @@ let project = Project.app(
 	moduleTargets: [
 		makeNetworkingKitModule(),
 		makeCommonModule(),
+		makeMockServicesModule(),
+		makeUserDefaultsServiceModule(),
+		makeThemeManagerModule(),
 		makeUIComponentsModule(),
 		makeCharactersModule()
 	]
@@ -36,6 +39,9 @@ func makeNetworkingKitModule() -> Module {
 			.external(name: "DITranquillity")
 		],
 		apiDependencies: [],
+		testingDependencies: [
+			.target(name: "MockServices")
+		],
 		targetsWithResources: [.testing],
 		targets: [
 			.api,
@@ -54,6 +60,53 @@ func makeCommonModule() -> Module {
 		frameworkDependencies: [],
 		apiDependencies: [],
 		targets: [.api]
+	)
+}
+
+func makeMockServicesModule() -> Module {
+	Module(
+		name: "MockServices",
+		path: "MockServices",
+		exampleAppDependencies: [],
+		frameworkDependencies: [
+			.target(name: "NetworkingKitAPI"),
+			.target(name: "ThemeManagerAPI"),
+			.target(name: "CharactersAPI")
+		],
+		apiDependencies: [],
+		targets: [.framework]
+	)
+}
+
+func makeUserDefaultsServiceModule() -> Module {
+	Module(
+		name: "UserDefaultsService",
+		path: "UserDefaultsService",
+		exampleAppDependencies: [],
+		frameworkDependencies: [
+			.external(name: "DITranquillity")
+		],
+		apiDependencies: [],
+		targets: [.api, .framework]
+	)
+}
+
+func makeThemeManagerModule() -> Module {
+	Module(
+		name: "ThemeManager",
+		path: "ThemeManager",
+		exampleAppDependencies: [],
+		frameworkDependencies: [
+			.external(name: "DITranquillity")
+		],
+		apiDependencies: [
+			.target(name: "Common"),
+			.target(name: "UserDefaultsServiceAPI")
+		],
+		testingDependencies: [
+			.target(name: "MockServices")
+		],
+		targets: [.api, .framework, .testing, .unitTests]
 	)
 }
 
@@ -84,11 +137,15 @@ func makeCharactersModule() -> Module {
 			.target(name: "NetworkingKitTesting")
 		],
 		frameworkDependencies: [
-			.target(name: "UIComponents")
+			.target(name: "UIComponents"),
+			.external(name: "DITranquillity")
 		],
 		apiDependencies: [
 			.target(name: "NetworkingKitAPI"),
 			.target(name: "Common")
+		],
+		testingDependencies: [
+			.target(name: "MockServices")
 		],
 		targetsWithResources: [.exampleApp, .testing]
 	)

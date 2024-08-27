@@ -13,8 +13,9 @@ public final class CharactersFramework: DIFramework {
 	public static func load(container: DIContainer) {
 		container.append(part: GetCharactersUseCasePart.self)
 
-		container.register(CharactersListViewModel.init)
-		container.register { CharactersListView(viewModel: $0) }
+		container.register { CharactersListViewModel(getCharactersUseCase: $0, themeManager: $1) }
+		
+		container.register { CharactersListView(viewModel: $0, themeProvider: $1) }
 			.as((any CharactersListViewAPI).self)
 	}
 }

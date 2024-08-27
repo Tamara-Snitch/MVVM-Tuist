@@ -9,8 +9,10 @@
 import Foundation
 import Testing
 import NetworkingKitAPI
+import ThemeManagerAPI
 import CharactersAPI
 import CharactersTesting
+import MockServices
 @testable import Characters
 
 final class CharactersListViewModelTests {
@@ -39,7 +41,8 @@ final class CharactersListViewModelTests {
 						apiClient: MockAPIClient(result: .success(.mockFile(mockFileURL)))
 					)
 				)
-			)
+			),
+			themeManager: MockThemeManager(currentTheme: AnyTheme(AppTheme.dark))
 		)
 
 		#expect(sut.hasMoreItems == true)
@@ -65,7 +68,8 @@ final class CharactersListViewModelTests {
 						baseURL: "",
 						apiClient: MockAPIClient(result: .failure(expectedError)))
 				)
-			)
+			),
+			themeManager: MockThemeManager(currentTheme: AnyTheme(AppTheme.dark))
 		)
 
 		#expect(sut.hasMoreItems == true)

@@ -8,6 +8,7 @@
 
 import Common
 import CharactersAPI
+import UIComponents
 import SwiftUI
 import NukeUI
 
@@ -22,22 +23,30 @@ struct CharacterListCard: View {
 	// MARK: Private properties
 
 	private let character: CharacterDomain
+	private let action: () -> Void
 
 	// MARK: Init
 
-	init(character: CharacterDomain) {
+	init(
+		character: CharacterDomain,
+		action: @escaping () -> Void
+	) {
 		self.character = character
+		self.action = action
 	}
 
 	// MARK: - Body
 
 	var body: some View {
-		HStack(spacing: Constants.stackSpacing) {
-			characterImage
-			characterInfo
+		Button(action: action) {
+			HStack(spacing: Constants.stackSpacing) {
+				characterImage
+				characterInfo
+			}
+			.background(Colors.Background.widgetPrimary)
+			.clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
 		}
-		.background(Colors.Background.widgetPrimary)
-		.clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
+		.buttonStyle(ShrinkingButtonStyle())
 	}
 
 	// MARK: - Private properties

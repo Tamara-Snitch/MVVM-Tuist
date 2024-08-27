@@ -8,6 +8,7 @@
 
 import Common
 import CharactersAPI
+import ThemeManagerAPI
 import UIComponents
 import SwiftUI
 
@@ -22,6 +23,8 @@ struct CharactersListView: CharactersListViewAPI {
 
 	@StateObject var viewModel: CharactersListViewModel
 	@State var shouldLoadNextPage: Bool = false
+
+	@State var themeProvider: AbstractThemeProvider
 
 	// MARK: - Public properties
 

@@ -58,7 +58,7 @@ struct CharactersGridView: View {
 	private var listView: some View {
 		LazyVGrid(columns: [GridItem(.flexible())]) {
 			ForEach(Array(characters.enumerated()), id: \.element.id) { index, character in
-				CharacterListCard(character: character)
+				CharacterListCard(character: character) { } // TODO: - Прокинуть Action
 					.padding(.vertical, Constants.verticalColumnSpacing)
 					.onAppear {
 						shouldLoadNextPage = index >= characters.count - 3
