@@ -14,6 +14,7 @@ public protocol Theme: Equatable {
 
 	var colorPalette: AnyColorPalette { get }
 	var typography: AnyTypography { get }
+	var lotties: AnyLotties { get }
 }
 
 public extension Theme {

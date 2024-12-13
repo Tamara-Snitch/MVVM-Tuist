@@ -9,7 +9,13 @@
 import SwiftUI
 
 public protocol ColorPaletteAPI: Equatable {
-	var primaryBackground: Color { get }
-	var secondaryBackground: Color { get }
-	var searchBackground: Color { get }
+	var backgroundPrimary: Color { get }
+	var backgroundSecondary: Color { get }
+	var backgroundSearch: Color { get }
+	var accentPrimary: Color { get }
+	var badgePrimary: Color { get }
+	var textPrimary: Color { get }
+	var textSecondary: Color { get }
+	var textTertiary: Color { get }
+	var divider: Color { get }
 }

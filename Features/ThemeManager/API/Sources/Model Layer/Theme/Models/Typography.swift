@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Typography: TypographyAPI, Equatable {
-	let titleFont: Font
-	let textFont: Font
+public struct Typography: TypographyAPI, Equatable {
+	public let titleFont: Font
+	public let textFont: Font
 }

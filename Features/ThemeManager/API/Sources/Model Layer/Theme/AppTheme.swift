@@ -9,5 +9,6 @@
 public enum AppTheme: Int, Theme, CaseIterable {
 	case light
 	case dark
+	case gray
 	case system
 }

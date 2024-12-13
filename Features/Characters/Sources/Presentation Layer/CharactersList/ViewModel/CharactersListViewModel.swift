@@ -14,15 +14,18 @@ import ThemeManagerAPI
 final class CharactersListViewModel: ObservableObject {
 
 	enum Action {
+		case toggleIsFilterNeeded
 		case resetAndLoad
 		case loadCharacters
+		case didSelectCharacter(CharacterDomain)
 	}
 
 	struct State {
 		var isLoading: Bool = false
+		var isFilterNeeded: Bool = false
 		var characters: [CharacterDomain] = []
 		var error: Error?
-		var selectedGridStyle: GridStyle = .list
+		var filters: [Any] = []
 	}
 
 	// MARK: - Internal properties
@@ -55,6 +58,16 @@ final class CharactersListViewModel: ObservableObject {
 			await fetchCharacters()
 		case .loadCharacters:
 			await fetchCharacters()
+		case .toggleIsFilterNeeded:
+			await toggleIsFilterNeeded()
+		case .didSelectCharacter(let char):
+			var allThemes = AnyTheme.allThemes
+			let forRemove = allThemes.firstIndex(where: { $0.typeInfo == themeManager.currentTheme.typeInfo })!
+			allThemes.remove(at: forRemove)
+
+			let selectedNew = allThemes.randomElement()!
+			print("@@ will select \(selectedNew.typeInfo)")
+			await themeManager.applyTheme(theme: selectedNew)
 		}
 	}
 
@@ -75,5 +88,11 @@ final class CharactersListViewModel: ObservableObject {
 		case .failure(let error):
 			state.error = error
 		}
+	}
+
+	@MainActor
+	private func toggleIsFilterNeeded() async {
+		state.isFilterNeeded = true
+		state.isFilterNeeded = false
 	}
 }

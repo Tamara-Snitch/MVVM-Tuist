@@ -39,7 +39,7 @@ final class ThemeManagerTests {
 		}
 	}
 
-	@Test func selectTheme_shouldSucceed() {
+	@Test func selectTheme_shouldSucceed() async {
 		self.sut = ThemeManager(
 			userDefaultsService: ThemeUserDefaultsMock(),
 			availableThemes: themes
@@ -51,10 +51,10 @@ final class ThemeManagerTests {
 			try #require(sut.currentTheme != nextSelectedTheme)
 
 			// When
-			sut.applyTheme(theme: nextSelectedTheme)
+			await sut.applyTheme(theme: nextSelectedTheme)
 
 			// Then
-			#expect(nextSelectedTheme == sut.currentTheme)
+			#expect(nextSelectedTheme.typeInfo == sut.currentTheme.typeInfo)
 		} catch {
 			Issue.record()
 		}
@@ -74,7 +74,7 @@ final class ThemeManagerTests {
 		#expect(sut == nil)
 	}
 
-	@Test func selectTheme_shouldUpdateUserDefaultsService() {
+	@Test func selectTheme_shouldUpdateUserDefaultsService() async {
 		// Given
 		let userDefaultsService: UserDefaultsServiceAPI = ThemeUserDefaultsMock()
 		self.sut = ThemeManager(
@@ -87,7 +87,7 @@ final class ThemeManagerTests {
 			#expect(userDefaultsService.selectedTheme != nextSelectedTheme.typeInfo)
 
 			// When
-			sut.applyTheme(theme: nextSelectedTheme)
+			await sut.applyTheme(theme: nextSelectedTheme)
 
 			// Then
 			#expect(userDefaultsService.selectedTheme == nextSelectedTheme.typeInfo)
@@ -111,7 +111,7 @@ final class ThemeManagerTests {
 			)
 
 			// Expect
-			#expect(sut.currentTheme == selectedTheme)
+			#expect(sut.currentTheme.typeInfo == selectedTheme.typeInfo)
 		} catch {
 			Issue.record()
 		}

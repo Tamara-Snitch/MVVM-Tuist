@@ -15,6 +15,8 @@ public extension AppTheme {
 			return NSLocalizedString("appTheme.light", comment: "AppTheme-light")
 		case .dark:
 			return NSLocalizedString("appTheme.dark", comment: "AppTheme-dark")
+		case .gray:
+			return NSLocalizedString("appTheme.gray", comment: "AppTheme-gray")
 		case .system:
 			return NSLocalizedString("appTheme.system", comment: "AppTheme-system")
 		}

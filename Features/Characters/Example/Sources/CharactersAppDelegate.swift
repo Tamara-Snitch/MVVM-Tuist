@@ -52,7 +52,7 @@ final class CharactersAppDelegate: NSObject, UIApplicationDelegate {
 		)
 		arguments.addArgs(for: GetCharactersRemoteDataSource.self, args: Constants.rickAndMortyURL)
 		
-		let view: any CharactersListViewAPI = container.resolve(arguments: arguments)
+		let view: any CharactersListScreenAPI = container.resolve(arguments: arguments)
 		return view
 	}
 }

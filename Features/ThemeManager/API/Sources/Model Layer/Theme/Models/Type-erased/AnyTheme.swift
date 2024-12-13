@@ -26,12 +26,17 @@ public struct AnyTheme: Theme {
 		return _typography()
 	}
 
+	public var lotties: AnyLotties {
+		return _lotties()
+	}
+
 	// MARK: - Private properties
 
 	private let _displayName: () -> String
 	private let _typeInfo: () -> String
 	private let _colorPalette: () -> AnyColorPalette
 	private let _typography: () -> AnyTypography
+	private let _lotties: () -> AnyLotties
 
 	// MARK: - Init
 
@@ -40,6 +45,7 @@ public struct AnyTheme: Theme {
 		self._typeInfo = { theme.typeInfo }
 		self._colorPalette = { theme.colorPalette }
 		self._typography = { theme.typography }
+		self._lotties = { theme.lotties }
 	}
 }
 
@@ -48,8 +54,10 @@ public struct AnyTheme: Theme {
 public extension AnyTheme {
 	static func == (lhs: AnyTheme, rhs: AnyTheme) -> Bool {
 		return lhs.typeInfo == rhs.typeInfo &&
+		lhs.displayName == rhs.displayName &&
 		lhs.colorPalette == rhs.colorPalette &&
-		lhs.typography == rhs.typography
+		lhs.typography == rhs.typography &&
+		lhs.lotties == rhs.lotties
 	}
 }
 
@@ -57,6 +65,7 @@ extension AnyTheme {
 	public static let allThemes: [AnyTheme] = [
 		AnyTheme(AppTheme.light),
 		AnyTheme(AppTheme.dark),
+		AnyTheme(AppTheme.gray),
 		AnyTheme(AppTheme.system)
 	]
 }

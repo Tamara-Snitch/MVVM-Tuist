@@ -18,6 +18,23 @@
         }
       }
     },
+    "appTheme.gray" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gray"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Серая"
+          }
+        }
+      }
+    },
     "appTheme.light" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -52,6 +69,24 @@
         }
       }
     },
+    "cancelAction" : {
+      "comment" : "Действие 'Отменить'",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отменить"
+          }
+        }
+      }
+    },
     "characters.emptyResponse" : {
       "comment" : "При отображении пустого списка CharactersList",
       "extractionState" : "manual",
@@ -66,6 +101,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Здесь еще нет персонажей. Потяните вверх для обновления"
+          }
+        }
+      }
+    },
+    "characters.filtersTitle" : {
+      "comment" : "Filter's title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filters"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Фильтры"
           }
         }
       }

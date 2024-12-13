@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Common
+import SwiftUI
 
 public struct CharacterDomain: Identifiable, Equatable {
 	public let id: Int
@@ -64,6 +66,17 @@ public extension CharacterDomain {
 
 		public var displayName: String {
 			self.rawValue.capitalized
+		}
+
+		public var color: Color {
+			switch self {
+			case .alive:
+				Colors.CharacterStatus.alive
+			case .dead:
+				Colors.CharacterStatus.dead
+			case .unknown:
+				Colors.CharacterStatus.unknown
+			}
 		}
 	}
 }

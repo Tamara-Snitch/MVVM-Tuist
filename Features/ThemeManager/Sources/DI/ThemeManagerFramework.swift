@@ -15,6 +15,7 @@ public final class ThemeManagerFramework: DIFramework {
 	public static func load(container: DIContainer) {
 		container.register { ThemeManager(userDefaultsService: $0, availableThemes: $1) }
 			.as(ThemeManagerAPI.self)
+			.as(ThemeManagerSystemObserverAPI.self)
 			.as(ThemeManager.self)
 			.lifetime(.single)
 
@@ -22,7 +23,7 @@ public final class ThemeManagerFramework: DIFramework {
 			let themeManager: ThemeManager = container.resolve()
 			return AnyThemeProvider(themeManager)
 		}
-		.as(AbstractThemeProvider.self)
+		.as(AnyThemeProvider.self)
 		.lifetime(.single)
 	}
 }

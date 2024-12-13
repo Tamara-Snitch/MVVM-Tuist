@@ -12,10 +12,15 @@ import SwiftUI
 struct MVVMTuistApp: App {
 
 	@UIApplicationDelegateAdaptor var appDelegate: AppDelegate
+	@Environment(\.scenePhase) private var scenePhase
 
 	var body: some Scene {
-		WindowGroup { 
+		WindowGroup {
 			AnyView(appDelegate.makeCharacterListView())
+				.onChange(of: scenePhase) { newPhase in
+					guard newPhase == .active else { return }
+					Task { await appDelegate.updateSystemThemeIfNeeded() }
+				}
 		}
 	}
 }

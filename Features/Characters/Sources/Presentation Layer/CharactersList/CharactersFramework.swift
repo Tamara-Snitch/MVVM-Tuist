@@ -15,7 +15,7 @@ public final class CharactersFramework: DIFramework {
 
 		container.register { CharactersListViewModel(getCharactersUseCase: $0, themeManager: $1) }
 		
-		container.register { CharactersListView(viewModel: $0, themeProvider: $1) }
-			.as((any CharactersListViewAPI).self)
+		container.register { CharactersListScreen(viewModel: $0, themeProvider: $1) }
+			.as((any CharactersListScreenAPI).self)
 	}
 }

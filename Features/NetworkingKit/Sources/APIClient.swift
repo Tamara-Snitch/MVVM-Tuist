@@ -70,7 +70,7 @@ public final class APIClient: IAPIRequestable {
 				return try JSONDecoder().decode(T.self, from: data)
 			} catch {
 				print("‼️ error occured: \(error)")
-				throw ApiError(errorCode: "666", message: "Error decoding data")
+				throw ApiError(errorCode: "", message: "Error decoding data")
 			}
 		default:
 			guard let decodedError = try? JSONDecoder().decode(ApiError.self, from: data) else {

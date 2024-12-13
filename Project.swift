@@ -116,15 +116,11 @@ func makeUIComponentsModule() -> Module {
 		path: "UIComponents",
 		exampleAppDependencies: [],
 		frameworkDependencies: [
-			.external(name: "NukeUI")
+			.external(name: "NukeUI"),
+			.external(name: "Lottie")
 		],
 		apiDependencies: [],
-		targets: [
-			.uiTests,
-			.testing,
-			.framework,
-			.api
-		]
+		targets: [.framework]
 	)
 }
 
@@ -134,7 +130,9 @@ func makeCharactersModule() -> Module {
 		path: "Characters",
 		exampleAppDependencies: [
 			.target(name: "NetworkingKit"),
-			.target(name: "NetworkingKitTesting")
+			.target(name: "NetworkingKitTesting"),
+			.target(name: "ThemeManager"),
+			.target(name: "UserDefaultsService")
 		],
 		frameworkDependencies: [
 			.target(name: "UIComponents"),

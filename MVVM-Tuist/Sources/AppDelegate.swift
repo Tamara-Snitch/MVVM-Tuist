@@ -32,6 +32,14 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 		container.append(framework: CharactersFramework.self)
 		return container
 	}()
+
+	private lazy var systemThemeObserver: ThemeManagerSystemObserverAPI = container.resolve()
+
+	// MARK: - Internal properties
+
+	func updateSystemThemeIfNeeded() async {
+		await systemThemeObserver.checkForSystemThemeUpdate()
+	}
 }
 
 // MARK: - CharacterListView
@@ -39,7 +47,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 extension AppDelegate {
 	func makeCharacterListView() -> any View {
 		let arguments = AnyArguments(for: GetCharactersRemoteDataSource.self, args: Constants.rickAndMortyURL)
-		let view: any CharactersListViewAPI = container.resolve(
+		let view: any CharactersListScreenAPI = container.resolve(
 			arguments: arguments
 		)
 		return view
